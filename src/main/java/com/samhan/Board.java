@@ -66,6 +66,14 @@ public class Board {
     return getWinner() != null;
   }
 
+  public boolean isGameOver() {
+    return hasNoMoreMoves() || hasWinner();
+  }
+
+  public boolean isDraw() {
+    return hasNoMoreMoves() || !hasWinner();
+  }
+
   public Marker getWinner() {
     for (Line line : allLines()) {
       if (line.isWinner()) {
@@ -73,6 +81,10 @@ public class Board {
       }
     }
     return null;
+  }
+
+  private boolean hasNoMoreMoves() {
+    return availableMoves().size() > 0;
   }
 
   private List<Line> allLines() {

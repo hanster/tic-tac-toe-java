@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by samhan on 20/08/2015.
@@ -159,5 +160,28 @@ public class BoardTest {
 
     assertThat(board.hasWinner(), is(true));
     assertThat(board.getWinner(), is(Marker.X));
+  }
+
+  @Test
+  public void gameIsOverWithAWinner() {
+    Board board = new Board(3, new Marker[]{
+            Marker.X, Marker.X, Marker.X,
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+    });
+
+    assertThat(board.isGameOver(), is(true));
+  }
+
+  @Test
+  public void boardIsDrawn() {
+    Board board = new Board(3, new Marker[]{
+            Marker.X, Marker.O, Marker.X,
+            Marker.X, Marker.O, Marker.X,
+            Marker.O, Marker.X, Marker.O
+    });
+
+    assertThat(board.hasWinner(), is(false));
+    assertThat(board.isDraw(), is(true));
   }
 }
