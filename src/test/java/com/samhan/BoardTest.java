@@ -1,7 +1,6 @@
 package com.samhan;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -11,9 +10,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by samhan on 20/08/2015.
- */
 public class BoardTest {
   @Test
   public void startsEmpty() {
@@ -170,7 +166,7 @@ public class BoardTest {
             Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
     });
 
-    assertThat(board.isGameOver(), is(true));
+    assertThat(board.isFinished(), is(true));
   }
 
   @Test

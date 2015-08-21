@@ -51,7 +51,7 @@ public class Board {
     return marks[position].equals(Marker.EMPTY);
   }
 
-  public List availableMoves() {
+  public List<Integer> availableMoves() {
     List <Integer> freePositions = new ArrayList<>();
     for (int index = 0; index < marks.length; index++) {
       if (isAvailable(index)) {
@@ -66,7 +66,7 @@ public class Board {
     return getWinner() != null;
   }
 
-  public boolean isGameOver() {
+  public boolean isFinished() {
     return hasNoMoreMoves() || hasWinner();
   }
 
@@ -84,7 +84,7 @@ public class Board {
   }
 
   private boolean hasNoMoreMoves() {
-    return availableMoves().size() > 0;
+    return availableMoves().size() == 0;
   }
 
   private List<Line> allLines() {
