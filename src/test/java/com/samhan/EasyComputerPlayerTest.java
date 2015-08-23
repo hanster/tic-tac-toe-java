@@ -7,6 +7,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class EasyComputerPlayerTest {
   @Test
+  public void hasAMarker() {
+    EasyComputerPlayer computer = new EasyComputerPlayer(Marker.O);
+
+    assertThat(computer.getMarker(), is(Marker.O));
+  }
+
+  @Test
   public void choosesOnlyAvailableMove() {
     Board board = new Board(3, new Marker[]{
             Marker.X, Marker.O, Marker.X,

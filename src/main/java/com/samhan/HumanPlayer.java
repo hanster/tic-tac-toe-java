@@ -2,9 +2,9 @@ package com.samhan;
 
 public class HumanPlayer implements Player {
   private Marker marker;
-  private UserInput input;
+  private PlayerInput input;
 
-  public HumanPlayer(Marker marker, UserInput input) {
+  public HumanPlayer(Marker marker, PlayerInput input) {
     this.marker = marker;
     this.input = input;
   }

@@ -151,6 +151,10 @@ public class Board {
     return new Line(rightLeftMarkers);
   }
 
+  public int movesMade() {
+    return marks.length - availableMoves().size();
+  }
+
   private class Line {
     private List<Marker> marks;
 

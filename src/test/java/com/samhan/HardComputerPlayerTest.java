@@ -2,10 +2,20 @@ package com.samhan;
 
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HardComputerPlayerTest {
+  @Test
+  public void hasAMarker() {
+    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+
+    assertThat(computer.getMarker(), is(Marker.O));
+  }
+
   @Test
   public void makesAValidMove() {
     Board emptyBoard = new Board();
@@ -67,5 +77,21 @@ public class HardComputerPlayerTest {
     int computerMove = computer.nextMove(board);
 
     assertThat(computerMove, is(15));
+  }
+
+  @Test
+  public void testsRandomMove() {
+    Board board = new Board(4, new Marker[]{
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+    });
+    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+
+    int computerMove = computer.nextMove(board);
+    List<Integer> availableMoves = board.availableMoves();
+
+    assertThat(availableMoves, hasItem(computerMove));
   }
 }

@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class HumanPlayerTest {
   @Test
   public void hasAMarker() {
-    UserInput input = new FakeUserInput();
+    PlayerInput input = new FakeUserInput();
     Player humanPlayer = new HumanPlayer(Marker.X, input);
 
     assertThat(humanPlayer.getMarker(), is(Marker.X));
@@ -25,7 +25,7 @@ public class HumanPlayerTest {
     assertThat(input.getMoveTimesCalled, is(1));
   }
 
-  private class FakeUserInput implements UserInput {
+  private class FakeUserInput implements PlayerInput {
     public int getMoveTimesCalled;
 
     public FakeUserInput() {
