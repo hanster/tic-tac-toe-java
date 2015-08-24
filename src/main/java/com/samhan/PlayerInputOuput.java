@@ -1,5 +1,5 @@
 package com.samhan;
 
-public interface PlayerInput {
+public interface PlayerInputOuput {
   int getMove(Board board);
 }
