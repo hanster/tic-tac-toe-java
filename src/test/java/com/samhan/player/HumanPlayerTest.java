@@ -1,6 +1,11 @@
-package com.samhan;
+package com.samhan.player;
 
 
+import com.samhan.Board;
+import com.samhan.Marker;
+import com.samhan.player.HumanPlayer;
+import com.samhan.player.Player;
+import com.samhan.ui.PlayerInputOuput;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

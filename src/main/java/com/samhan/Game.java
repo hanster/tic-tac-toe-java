@@ -1,5 +1,8 @@
 package com.samhan;
 
+import com.samhan.player.Player;
+import com.samhan.ui.Display;
+
 public class Game {
   private final Player player1;
   private final Player player2;

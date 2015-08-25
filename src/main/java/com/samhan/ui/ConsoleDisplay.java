@@ -1,5 +1,7 @@
-package com.samhan;
+package com.samhan.ui;
 
+import com.samhan.Board;
+import com.samhan.Marker;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.PrintStream;

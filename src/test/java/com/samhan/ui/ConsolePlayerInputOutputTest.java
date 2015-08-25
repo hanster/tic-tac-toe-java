@@ -1,5 +1,8 @@
-package com.samhan;
+package com.samhan.ui;
 
+import com.samhan.Board;
+import com.samhan.Marker;
+import com.samhan.ui.ConsolePlayerInputOutput;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

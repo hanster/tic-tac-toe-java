@@ -1,5 +1,7 @@
-package com.samhan;
+package com.samhan.ui;
 
+import com.samhan.Board;
+import com.samhan.Marker;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +49,6 @@ public class ConsoleDisplayTest {
                     "  9  | 10  | 11  | 12  \n" +
                     "-----+-----+-----+-----\n" +
                     " 13  | 14  | 15  | 16  \n";
-
 
     display.render(new Board(4), Marker.X);
 

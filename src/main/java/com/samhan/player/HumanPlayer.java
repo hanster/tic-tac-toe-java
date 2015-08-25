@@ -1,4 +1,8 @@
-package com.samhan;
+package com.samhan.player;
+
+import com.samhan.Board;
+import com.samhan.Marker;
+import com.samhan.ui.PlayerInputOuput;
 
 public class HumanPlayer implements Player {
   private Marker marker;

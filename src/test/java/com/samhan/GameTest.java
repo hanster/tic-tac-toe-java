@@ -1,5 +1,7 @@
 package com.samhan;
 
+import com.samhan.player.Player;
+import com.samhan.ui.Display;
 import org.junit.Before;
 import org.junit.Test;
 

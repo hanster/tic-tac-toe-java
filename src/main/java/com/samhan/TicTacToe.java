@@ -1,5 +1,9 @@
 package com.samhan;
 
+import com.samhan.player.HumanPlayer;
+import com.samhan.ui.ConsoleDisplay;
+import com.samhan.ui.ConsolePlayerInputOutput;
+
 public class TicTacToe {
   public static void main(String args[]) {
     ConsolePlayerInputOutput console = new ConsolePlayerInputOutput(System.in, System.out);
