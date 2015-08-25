@@ -14,6 +14,13 @@ public class ConsoleDisplay implements Display {
   private static final String ANSI_HOME = "\u001b[H";
   private static final int OFFSET = 1;
   private static final int CELL_WIDTH = 5;
+  private static final String CURRENT_PLAYER = "Current Player: %s";
+  public static final String CELL_SEPARATOR = "|";
+  public static final String ROW_CELL_SEPARATOR = "-";
+  public static final String CROSS_SEPARATOR = "+";
+  public static final String GAME_OVER_RESULT = "Game Over! Result: %s";
+  public static final String DRAW = "Draw";
+  public static final String WINS = " wins";
   private final PrintStream output;
 
   public ConsoleDisplay(PrintStream output) {
@@ -24,6 +31,28 @@ public class ConsoleDisplay implements Display {
   public void render(Board board, Marker marker) {
     clearDisplay();
     renderBoard(board);
+    renderStatus(board, marker);
+  }
+
+  private void renderStatus(Board board, Marker marker) {
+    if (!board.isFinished()) {
+      renderOngoingStatus(marker);
+    } else {
+      renderEndStatus(board);
+    }
+  }
+
+  private void renderOngoingStatus(Marker marker) {
+    output.print(String.format(CURRENT_PLAYER, marker.toString()));
+  }
+
+  private void renderEndStatus(Board board) {
+    if (board.hasWinner()) {
+      Marker winner = board.getWinner();
+      output.print(String.format(GAME_OVER_RESULT, winner.toString() + WINS));
+    } else {
+      output.print(String.format(GAME_OVER_RESULT, DRAW));
+    }
   }
 
   private void clearDisplay() {
@@ -38,7 +67,7 @@ public class ConsoleDisplay implements Display {
 
     for (int rowIndex = 0; rowIndex < board.size(); rowIndex++) {
       List<String> rowPositions = groupedRowPositions(board.size(), centeredPositions, rowIndex);
-      boardOutput.append(StringUtils.join(rowPositions, "|"));
+      boardOutput.append(StringUtils.join(rowPositions, CELL_SEPARATOR));
       boardOutput.append(rowSeparator(board.size()));
     }
 
@@ -74,8 +103,8 @@ public class ConsoleDisplay implements Display {
 
   private String rowSeparator(int boardSize) {
     String rowSeparator = "\n";
-    String singleCellRowSeparator = StringUtils.repeat("-", CELL_WIDTH);
-    rowSeparator += StringUtils.repeat(singleCellRowSeparator, "+", boardSize);
+    String singleCellRowSeparator = StringUtils.repeat(ROW_CELL_SEPARATOR, CELL_WIDTH);
+    rowSeparator += StringUtils.repeat(singleCellRowSeparator, CROSS_SEPARATOR, boardSize);
     return rowSeparator + "\n";
   }
 

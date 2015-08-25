@@ -84,4 +84,51 @@ public class ConsoleDisplayTest {
 
     assertThat(output.toString(), containsString(renderedBoard));
   }
+
+  @Test
+  public void displayTheNextPlayerTurn() {
+    display.render(new Board(), Marker.X);
+
+    assertThat(output.toString(), containsString("Current Player: X"));
+  }
+
+  @Test
+  public void displayDrawEndStatus() {
+    Board board = new Board(3, new Marker[]{
+            Marker.X, Marker.O, Marker.X,
+            Marker.X, Marker.O, Marker.X,
+            Marker.O, Marker.X, Marker.O
+    });
+
+    display.render(board, Marker.X);
+
+    assertThat(output.toString(), containsString("Game Over! Result: Draw"));
+  }
+
+  @Test
+  public void displayXWinnerEndStatus() {
+    Board board = new Board(3, new Marker[]{
+            Marker.X, Marker.O, Marker.X,
+            Marker.O, Marker.O, Marker.X,
+            Marker.O, Marker.X, Marker.X
+    });
+
+    display.render(board, Marker.O);
+
+    assertThat(output.toString(), containsString("Game Over! Result: X wins"));
+  }
+
+
+  @Test
+  public void displayOWinnerEndStatus() {
+    Board board = new Board(3, new Marker[]{
+            Marker.X, Marker.O, Marker.X,
+            Marker.O, Marker.O, Marker.O,
+            Marker.O, Marker.X, Marker.X
+    });
+
+    display.render(board, Marker.X);
+
+    assertThat(output.toString(), containsString("Game Over! Result: O wins"));
+  }
 }
