@@ -61,4 +61,27 @@ public class ConsoleDisplayTest {
 
     assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
   }
+
+  @Test
+  public void displaysMarkers() {
+    String renderedBoard =
+            "\n" +
+                    "  1  |  2  |  3  |  X  \n" +
+                    "-----+-----+-----+-----\n" +
+                    "  5  |  6  |  X  |  8  \n" +
+                    "-----+-----+-----+-----\n" +
+                    "  9  |  X  | 11  | 12  \n" +
+                    "-----+-----+-----+-----\n" +
+                    "  X  | 14  | 15  | 16  \n";
+    Board board = new Board(4, new Marker[]{
+            Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
+            Marker.EMPTY, Marker.EMPTY, Marker.X, Marker.EMPTY,
+            Marker.EMPTY, Marker.X,     Marker.EMPTY, Marker.EMPTY,
+            Marker.X,     Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+    });
+
+    display.render(board, Marker.X);
+
+    assertThat(output.toString(), containsString(renderedBoard));
+  }
 }
