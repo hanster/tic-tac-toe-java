@@ -66,7 +66,6 @@ public class GameTest {
     assertThat(player2.nextMoveTimesCalled, is(1));
   }
 
-
   private class FakePlayer implements Player {
 
     private final Marker marker;
@@ -97,7 +96,7 @@ public class GameTest {
     }
 
     @Override
-    public void render(Board board) {
+    public void render(Board board, Marker marker) {
       renderTimesCalled++;
     }
   }

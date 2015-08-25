@@ -1,5 +1,5 @@
 package com.samhan;
 
 public interface Display {
-  void render(Board board);
+  void render(Board board, Marker marker);
 }

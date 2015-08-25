@@ -19,7 +19,7 @@ public class Game {
   }
 
   public void render() {
-    display.render(board);
+    display.render(board, currentPlayer().getMarker());
   }
 
   public void playTurn() {

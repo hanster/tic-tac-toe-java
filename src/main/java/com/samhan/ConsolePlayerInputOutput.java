@@ -35,8 +35,9 @@ public class ConsolePlayerInputOutput implements PlayerInputOuput {
     int boardMaxMove = board.size() * board.size();
     List<String> errorMessages = new ArrayList<>();
     try {
-      move = tryToGetValidIntegerInput() - OFFSET;
+      move = tryToGetValidIntegerInput();
       validateBoundary(move, boardMaxMove, errorMessages);
+      move = move - OFFSET;
       validateMoveAvailable(board, move, errorMessages);
     } catch (IOException | NumberFormatException e) {
       errorMessages.add(String.format(INVALID_ENTRY, boardMaxMove));
