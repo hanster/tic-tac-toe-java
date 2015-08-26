@@ -4,6 +4,7 @@ import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;
 import com.samhan.player.Player;
+import com.samhan.ui.BoardSelection;
 import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
 import com.samhan.ui.PlayerSelection;
@@ -15,17 +16,19 @@ public class GameSetup {
   private final Display display;
   private final PlayerInputOutput playerInputOutput;
   private final PlayerSelection playerSelection;
+  private final BoardSelection boardSelection;
 
-  public GameSetup(Display display, PlayerInputOutput playerInputOutput, PlayerSelection playerSelection) {
+  public GameSetup(Display display, PlayerInputOutput playerInputOutput, PlayerSelection playerSelection, BoardSelection boardSelection) {
     this.display = display;
     this.playerInputOutput = playerInputOutput;
     this.playerSelection = playerSelection;
+    this.boardSelection = boardSelection;
   }
 
-  public GameParams buildGame(BoardType boardType) {
+  public GameParams buildGame() {
     Player player1 = createPlayer(playerSelection.selectType(PLAYER_ONE), Marker.X);
     Player player2 = createPlayer(playerSelection.selectType(PLAYER_TWO), Marker.O);
-    Board board = createBoard(boardType);
+    Board board = createBoard(boardSelection.selectType());
 
     return new GameParams(player1, player2, board, display);
   }

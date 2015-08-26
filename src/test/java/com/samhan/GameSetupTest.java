@@ -6,6 +6,7 @@ import com.samhan.Fakes.PlayerSelectionStub;
 import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;
+import com.samhan.ui.BoardSelection;
 import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
 import org.junit.Test;
@@ -29,9 +30,10 @@ public class GameSetupTest {
     Display display = new DisplaySpy();
     PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
     PlayerSelectionStub playerSelection = setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.EASY_COMPUTER);
-    GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection);
+    BoardSelectionStub boardSelection = new BoardSelectionStub(BoardType.THREE);
+    GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection, boardSelection);
 
-    GameParams params = gameSetup.buildGame(BoardType.THREE);
+    GameParams params = gameSetup.buildGame();
 
     assertThat(params.player1, instanceOf(Human.class));
     assertThat(params.player2, instanceOf(EasyComputer.class));
@@ -43,14 +45,26 @@ public class GameSetupTest {
     Display display = new DisplaySpy();
     PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
     PlayerSelectionStub playerSelection = setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.HARD_COMPUTER);
-    GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection);
+    BoardSelectionStub boardSelection = new BoardSelectionStub(BoardType.FOUR);
+    GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection, boardSelection);
 
-    GameParams params = gameSetup.buildGame(BoardType.FOUR);
+    GameParams params = gameSetup.buildGame();
 
     assertThat(params.player1, instanceOf(Human.class));
     assertThat(params.player2, instanceOf(HardComputer.class));
     assertThat(params.board.size(), is(4));
   }
 
+  public class BoardSelectionStub implements BoardSelection {
+    private final BoardType boardType;
 
+    public BoardSelectionStub(BoardType boardType) {
+      this.boardType = boardType;
+    }
+
+    @Override
+    public BoardType selectType() {
+      return boardType;
+    }
+  }
 }
