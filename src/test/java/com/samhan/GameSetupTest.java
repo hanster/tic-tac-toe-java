@@ -59,7 +59,7 @@ public class GameSetupTest {
     }
 
     @Override
-    public PlayerType select(String playerNumber) {
+    public PlayerType selectType(String playerNumber) {
       return playerTypes.remove();
     }
   }

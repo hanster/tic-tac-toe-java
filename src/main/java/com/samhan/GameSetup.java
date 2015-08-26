@@ -23,8 +23,8 @@ public class GameSetup {
   }
 
   public GameParams buildGame(BoardType boardType) {
-    Player player1 = createPlayer(playerSelection.select(PLAYER_ONE), Marker.X);
-    Player player2 = createPlayer(playerSelection.select(PLAYER_TWO), Marker.O);
+    Player player1 = createPlayer(playerSelection.selectType(PLAYER_ONE), Marker.X);
+    Player player2 = createPlayer(playerSelection.selectType(PLAYER_TWO), Marker.O);
     Board board = createBoard(boardType);
 
     return new GameParams(player1, player2, board, display);

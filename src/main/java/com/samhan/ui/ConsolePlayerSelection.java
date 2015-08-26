@@ -10,7 +10,7 @@ public class ConsolePlayerSelection implements PlayerSelection {
   }
 
   @Override
-  public PlayerType select(String playerNumber) {
+  public PlayerType selectType(String playerNumber) {
     String playerSelection = optionMenu.getSelection(getPrompt(playerNumber), PlayerType.options());
     return PlayerType.getType(playerSelection);
   }

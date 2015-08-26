@@ -13,7 +13,7 @@ public class ConsoleBoardSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub(BoardType.THREE.getInput());
     ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
-    BoardType boardType = selector.select();
+    BoardType boardType = selector.selectType();
 
     assertThat(boardType, is(BoardType.THREE));
   }
@@ -23,7 +23,7 @@ public class ConsoleBoardSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub(BoardType.FOUR.getInput());
     ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
-    BoardType boardType = selector.select();
+    BoardType boardType = selector.selectType();
 
     assertThat(boardType, is(BoardType.FOUR));
   }
@@ -33,7 +33,7 @@ public class ConsoleBoardSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub("5");
     ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
-    selector.select();
+    selector.selectType();
   }
 }
 

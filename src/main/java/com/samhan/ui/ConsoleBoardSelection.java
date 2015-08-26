@@ -9,7 +9,7 @@ public class ConsoleBoardSelection {
     this.optionMenu = optionMenu;
   }
 
-  public BoardType select() {
+  public BoardType selectType() {
     String boardSelection = optionMenu.getSelection("Enter Board size selection", BoardType.options());
     return BoardType.getType(boardSelection);
   }
