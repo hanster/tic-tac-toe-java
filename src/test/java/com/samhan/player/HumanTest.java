@@ -10,11 +10,11 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HumanPlayerTest {
+public class HumanTest {
   @Test
   public void hasAMarker() {
     PlayerInputOutput input = new PlayerInputOutputSpy();
-    Player humanPlayer = new HumanPlayer(Marker.X, input);
+    Player humanPlayer = new Human(Marker.X, input);
 
     assertThat(humanPlayer.getMarker(), is(Marker.X));
   }
@@ -22,7 +22,7 @@ public class HumanPlayerTest {
   @Test
   public void usesInputToGetTheMove() {
     PlayerInputOutputSpy input = new PlayerInputOutputSpy();
-    Player humanPlayer = new HumanPlayer(Marker.X, input);
+    Player humanPlayer = new Human(Marker.X, input);
 
     humanPlayer.nextMove(new Board());
 

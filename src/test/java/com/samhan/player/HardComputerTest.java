@@ -10,10 +10,10 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HardComputerPlayerTest {
+public class HardComputerTest {
   @Test
   public void hasAMarker() {
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     assertThat(computer.getMarker(), is(Marker.O));
   }
@@ -21,7 +21,7 @@ public class HardComputerPlayerTest {
   @Test
   public void makesAValidMove() {
     Board emptyBoard = new Board();
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     int computerMove = computer.nextMove(emptyBoard);
 
@@ -35,7 +35,7 @@ public class HardComputerPlayerTest {
             Marker.X, Marker.O, Marker.X,
             Marker.O, Marker.X, Marker.EMPTY
     });
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     int computerMove = computer.nextMove(board);
 
@@ -49,7 +49,7 @@ public class HardComputerPlayerTest {
             Marker.X, Marker.O,     Marker.X,
             Marker.O, Marker.EMPTY, Marker.EMPTY
     });
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.X);
+    HardComputer computer = new HardComputer(Marker.X);
 
     assertThat(computer.nextMove(board), is(8));
   }
@@ -61,7 +61,7 @@ public class HardComputerPlayerTest {
             Marker.O, Marker.X,     Marker.X,
             Marker.O, Marker.EMPTY, Marker.EMPTY
     });
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     assertThat(computer.nextMove(board), is(8));
   }
@@ -74,7 +74,7 @@ public class HardComputerPlayerTest {
             Marker.EMPTY, Marker.EMPTY, Marker.X,     Marker.EMPTY,
             Marker.EMPTY, Marker.O,     Marker.O,     Marker.EMPTY,
     });
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     int computerMove = computer.nextMove(board);
 
@@ -89,7 +89,7 @@ public class HardComputerPlayerTest {
             Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
             Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
     });
-    HardComputerPlayer computer = new HardComputerPlayer(Marker.O);
+    HardComputer computer = new HardComputer(Marker.O);
 
     int computerMove = computer.nextMove(board);
     List<Integer> availableMoves = board.availableMoves();

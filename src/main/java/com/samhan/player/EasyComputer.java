@@ -5,10 +5,10 @@ import com.samhan.Marker;
 
 import java.util.Random;
 
-public class EasyComputerPlayer implements Player{
+public class EasyComputer implements Player{
   private Marker marker;
 
-  public EasyComputerPlayer(Marker marker) {
+  public EasyComputer(Marker marker) {
     this.marker = marker;
   }
 

@@ -7,7 +7,7 @@ import java.util.Random;
 
 import static java.lang.Math.max;
 
-public class HardComputerPlayer implements Player {
+public class HardComputer implements Player {
   private static final int START_ALPHA = -100;
   private static final int START_BETA = 100;
   private static final int DEPTH_LIMIT = 7;
@@ -16,7 +16,7 @@ public class HardComputerPlayer implements Player {
   public static final int MOVE_LIMIT = 11;
   private final Marker marker;
 
-  public HardComputerPlayer(Marker marker) {
+  public HardComputer(Marker marker) {
     this.marker = marker;
   }
 

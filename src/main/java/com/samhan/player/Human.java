@@ -4,11 +4,11 @@ import com.samhan.Board;
 import com.samhan.Marker;
 import com.samhan.ui.PlayerInputOutput;
 
-public class HumanPlayer implements Player {
+public class Human implements Player {
   private Marker marker;
   private PlayerInputOutput input;
 
-  public HumanPlayer(Marker marker, PlayerInputOutput input) {
+  public Human(Marker marker, PlayerInputOutput input) {
     this.marker = marker;
     this.input = input;
   }

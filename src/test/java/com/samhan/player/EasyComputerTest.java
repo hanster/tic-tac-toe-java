@@ -7,10 +7,10 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class EasyComputerPlayerTest {
+public class EasyComputerTest {
   @Test
   public void hasAMarker() {
-    EasyComputerPlayer computer = new EasyComputerPlayer(Marker.O);
+    EasyComputer computer = new EasyComputer(Marker.O);
 
     assertThat(computer.getMarker(), is(Marker.O));
   }
@@ -22,7 +22,7 @@ public class EasyComputerPlayerTest {
             Marker.X, Marker.O, Marker.X,
             Marker.O, Marker.X, Marker.EMPTY
     });
-    EasyComputerPlayer computer = new EasyComputerPlayer(Marker.O);
+    EasyComputer computer = new EasyComputer(Marker.O);
 
     int computerMove = computer.nextMove(board);
 

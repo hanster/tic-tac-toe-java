@@ -1,8 +1,8 @@
 package com.samhan;
 
-import com.samhan.player.EasyComputerPlayer;
-import com.samhan.player.HardComputerPlayer;
-import com.samhan.player.HumanPlayer;
+import com.samhan.player.EasyComputer;
+import com.samhan.player.HardComputer;
+import com.samhan.player.Human;
 import com.samhan.player.Player;
 import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
@@ -34,16 +34,16 @@ public class GameSetup {
     Player player;
     switch (playerType) {
       case HUMAN:
-        player = new HumanPlayer(marker, playerInputOutput);
+        player = new Human(marker, playerInputOutput);
         break;
       case EASY_COMPUTER:
-        player = new EasyComputerPlayer(marker);
+        player = new EasyComputer(marker);
         break;
       case HARD_COMPUTER:
-        player = new HardComputerPlayer(marker);
+        player = new HardComputer(marker);
         break;
       default:
-        player = new HumanPlayer(marker, playerInputOutput);
+        player = new Human(marker, playerInputOutput);
         break;
     }
     return player;
