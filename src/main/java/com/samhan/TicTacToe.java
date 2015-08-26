@@ -1,21 +1,22 @@
 package com.samhan;
 
-import com.samhan.player.HumanPlayer;
 import com.samhan.ui.ConsoleDisplay;
+import com.samhan.ui.ConsoleOptionMenu;
 import com.samhan.ui.ConsolePlayerInputOutput;
 
 public class TicTacToe {
   public static void main(String args[]) {
     ConsolePlayerInputOutput console = new ConsolePlayerInputOutput(System.in, System.out);
-    HumanPlayer player1 = new HumanPlayer(Marker.X, console);
-    HumanPlayer player2 = new HumanPlayer(Marker.O, console);
+    ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(System.in, System.out);
     ConsoleDisplay display = new ConsoleDisplay(System.out);
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+
+    String playerOneSelection = optionMenu.getSelection("Enter Player1 selection", PlayerType.options());
+    String playerTwoSelection = optionMenu.getSelection("Enter Player2 selection", PlayerType.options());
+
+    Game game = new GameSetup(display, console)
+            .buildGame(PlayerType.getType(playerOneSelection),
+                    PlayerType.getType(playerTwoSelection),
+                    BoardType.THREE);
 
     game.render();
     while (game.isRunning()) {
