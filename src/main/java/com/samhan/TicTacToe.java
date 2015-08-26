@@ -8,12 +8,10 @@ public class TicTacToe {
     ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(System.in, System.out);
     ConsoleDisplay display = new ConsoleDisplay(System.out);
 
-    ConsolePlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
+    PlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
     ConsoleBoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
-    GameParams gameParams = new GameSetup(display, console)
-            .buildGame(playerSelector.select("1"),
-                    playerSelector.select("2"),
-                    boardSelector.select());
+    GameParams gameParams = new GameSetup(display, console, playerSelector)
+            .buildGame(boardSelector.select());
     Game game = new Game(gameParams);
 
     game.run();

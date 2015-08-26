@@ -11,7 +11,7 @@ public class ConsolePlayerSelectionTest {
   @Test
   public void selectAHumanPlayerType() {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.HUMAN.getInput());
-    ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
+    PlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
     PlayerType playerType = selector.select("1");
 
@@ -21,7 +21,7 @@ public class ConsolePlayerSelectionTest {
   @Test
   public void selectAnEasyComputerPlayerType() {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.EASY_COMPUTER.getInput());
-    ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
+    PlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
     PlayerType playerType = selector.select("1");
 
@@ -31,7 +31,7 @@ public class ConsolePlayerSelectionTest {
   @Test
   public void selectAHardComputerPlayerType() {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.HARD_COMPUTER.getInput());
-    ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
+    PlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
     PlayerType playerType = selector.select("1");
 
@@ -41,7 +41,7 @@ public class ConsolePlayerSelectionTest {
   @Test(expected = RuntimeException.class)
   public void unexpectedBoardType() {
     OptionMenu optionMenu = new OptionMenuStub("5");
-    ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
+    PlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
     selector.select("1");
   }

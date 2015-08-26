@@ -6,20 +6,25 @@ import com.samhan.player.Human;
 import com.samhan.player.Player;
 import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
+import com.samhan.ui.PlayerSelection;
 
 public class GameSetup {
 
+  public static final String PLAYER_ONE = "1";
+  public static final String PLAYER_TWO = "2";
   private final Display display;
   private final PlayerInputOutput playerInputOutput;
+  private final PlayerSelection playerSelection;
 
-  public GameSetup(Display display, PlayerInputOutput playerInputOutput) {
+  public GameSetup(Display display, PlayerInputOutput playerInputOutput, PlayerSelection playerSelection) {
     this.display = display;
     this.playerInputOutput = playerInputOutput;
+    this.playerSelection = playerSelection;
   }
 
-  public GameParams buildGame(PlayerType player1Type, PlayerType player2Type, BoardType boardType) {
-    Player player1 = createPlayer(player1Type, Marker.X);
-    Player player2 = createPlayer(player2Type, Marker.O);
+  public GameParams buildGame(BoardType boardType) {
+    Player player1 = createPlayer(playerSelection.select(PLAYER_ONE), Marker.X);
+    Player player2 = createPlayer(playerSelection.select(PLAYER_TWO), Marker.O);
     Board board = createBoard(boardType);
 
     return new GameParams(player1, player2, board, display);
