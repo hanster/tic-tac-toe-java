@@ -131,4 +131,26 @@ public class ConsoleDisplayTest {
 
     assertThat(output.toString(), containsString("Game Over! Result: O wins"));
   }
+
+  @Test
+  public void statusHasABlankLineBeforeAndAfter() {
+    display.render(new Board(), Marker.X);
+
+    assertThat(output.toString(), containsString("\nCurrent Player: X\n\n"));
+  }
+
+  @Test
+  public void boardHasBlankLineAfter() {
+    String emptyBoard =
+            "  1  |  2  |  3  \n" +
+                    "-----+-----+-----\n" +
+                    "  4  |  5  |  6  \n" +
+                    "-----+-----+-----\n" +
+                    "  7  |  8  |  9  \n\n";
+
+    display.render(new Board(3), Marker.X);
+
+    assertThat(output.toString(), containsString(emptyBoard));
+
+  }
 }

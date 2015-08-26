@@ -35,23 +35,25 @@ public class ConsoleDisplay implements Display {
   }
 
   private void renderStatus(Board board, Marker marker) {
+    displayBlankLine();
     if (!board.isFinished()) {
       renderOngoingStatus(marker);
     } else {
       renderEndStatus(board);
     }
+    displayBlankLine();
   }
 
   private void renderOngoingStatus(Marker marker) {
-    output.print(String.format(CURRENT_PLAYER, marker.toString()));
+    output.println(String.format(CURRENT_PLAYER, marker.toString()));
   }
 
   private void renderEndStatus(Board board) {
     if (board.hasWinner()) {
       Marker winner = board.getWinner();
-      output.print(String.format(GAME_OVER_RESULT, winner.toString() + WINS));
+      output.println(String.format(GAME_OVER_RESULT, winner.toString() + WINS));
     } else {
-      output.print(String.format(GAME_OVER_RESULT, DRAW));
+      output.println(String.format(GAME_OVER_RESULT, DRAW));
     }
   }
 
@@ -63,15 +65,15 @@ public class ConsoleDisplay implements Display {
     displayBlankLine();
     List<String> positions = offsetPositions(board);
     List<String> centeredPositions = centeredPositions(positions);
-    StringBuilder boardOutput = new StringBuilder();
+    List<String> boardRows = new ArrayList<>();
 
     for (int rowIndex = 0; rowIndex < board.size(); rowIndex++) {
       List<String> rowPositions = groupedRowPositions(board.size(), centeredPositions, rowIndex);
-      boardOutput.append(StringUtils.join(rowPositions, CELL_SEPARATOR));
-      boardOutput.append(rowSeparator(board.size()));
+      boardRows.add(StringUtils.join(rowPositions, CELL_SEPARATOR));
     }
 
-    output.print(boardOutput);
+    String boardOutput = StringUtils.join(boardRows, rowSeparator(board.size()));
+    output.println(boardOutput);
     displayBlankLine();
   }
 
