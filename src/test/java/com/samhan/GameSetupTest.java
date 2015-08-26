@@ -2,12 +2,12 @@ package com.samhan;
 
 import com.samhan.Fakes.DisplaySpy;
 import com.samhan.Fakes.PlayerInputOutputSpy;
+import com.samhan.Fakes.PlayerSelectionStub;
 import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;
 import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
-import com.samhan.ui.PlayerSelection;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -17,14 +17,18 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 public class GameSetupTest {
+  private PlayerSelectionStub setUpPlayerSelectionStub(PlayerType player1, PlayerType player2) {
+    LinkedList<PlayerType> playerTypes = new LinkedList<>();
+    playerTypes.add(player1);
+    playerTypes.add(player2);
+    return new PlayerSelectionStub(playerTypes);
+  }
+
   @Test
   public void getParamsForAGame() {
     Display display = new DisplaySpy();
     PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
-    LinkedList<PlayerType> playerTypes = new LinkedList<>();
-    playerTypes.add(PlayerType.HUMAN);
-    playerTypes.add(PlayerType.EASY_COMPUTER);
-    PlayerSelectionStub playerSelection = new PlayerSelectionStub(playerTypes);
+    PlayerSelectionStub playerSelection = setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.EASY_COMPUTER);
     GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection);
 
     GameParams params = gameSetup.buildGame(BoardType.THREE);
@@ -38,10 +42,7 @@ public class GameSetupTest {
   public void getParamsForHardComputerAndFourBoard() {
     Display display = new DisplaySpy();
     PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
-    LinkedList<PlayerType> playerTypes = new LinkedList<>();
-    playerTypes.add(PlayerType.HUMAN);
-    playerTypes.add(PlayerType.HARD_COMPUTER);
-    PlayerSelectionStub playerSelection = new PlayerSelectionStub(playerTypes);
+    PlayerSelectionStub playerSelection = setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.HARD_COMPUTER);
     GameSetup gameSetup = new GameSetup(display, playerInputOutput, playerSelection);
 
     GameParams params = gameSetup.buildGame(BoardType.FOUR);
@@ -51,16 +52,5 @@ public class GameSetupTest {
     assertThat(params.board.size(), is(4));
   }
 
-  public class PlayerSelectionStub implements PlayerSelection {
-    private final LinkedList<PlayerType> playerTypes;
 
-    public PlayerSelectionStub(LinkedList<PlayerType> playerTypes) {
-      this.playerTypes = playerTypes;
-    }
-
-    @Override
-    public PlayerType selectType(String playerNumber) {
-      return playerTypes.remove();
-    }
-  }
 }

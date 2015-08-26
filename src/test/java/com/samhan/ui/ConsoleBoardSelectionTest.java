@@ -11,7 +11,7 @@ public class ConsoleBoardSelectionTest {
   @Test
   public void selectAThreeBoardType() {
     OptionMenu optionMenu = new OptionMenuStub(BoardType.THREE.getInput());
-    ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
+    BoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
     BoardType boardType = selector.selectType();
 
@@ -21,7 +21,7 @@ public class ConsoleBoardSelectionTest {
   @Test
   public void selectAtFourBoardType() {
     OptionMenu optionMenu = new OptionMenuStub(BoardType.FOUR.getInput());
-    ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
+    BoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
     BoardType boardType = selector.selectType();
 
@@ -31,7 +31,7 @@ public class ConsoleBoardSelectionTest {
   @Test(expected = RuntimeException.class)
   public void unexpectedBoardType() {
     OptionMenu optionMenu = new OptionMenuStub("5");
-    ConsoleBoardSelection selector = new ConsoleBoardSelection(optionMenu);
+    BoardSelection selector = new ConsoleBoardSelection(optionMenu);
 
     selector.selectType();
   }
