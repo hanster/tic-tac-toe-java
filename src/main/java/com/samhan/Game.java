@@ -16,6 +16,14 @@ public class Game {
     this.display = builder.display;
   }
 
+  public void run() {
+    render();
+    while (isRunning()) {
+      playTurn();
+      render();
+    }
+  }
+
   public boolean isRunning() {
     return !board.isFinished();
   }

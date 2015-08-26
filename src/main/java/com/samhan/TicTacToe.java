@@ -13,15 +13,13 @@ public class TicTacToe {
     String playerOneSelection = optionMenu.getSelection("Enter Player1 selection", PlayerType.options());
     String playerTwoSelection = optionMenu.getSelection("Enter Player2 selection", PlayerType.options());
 
+    String boardSelection = optionMenu.getSelection("Enter Board size selection", BoardType.options());
+
     Game game = new GameSetup(display, console)
             .buildGame(PlayerType.getType(playerOneSelection),
                     PlayerType.getType(playerTwoSelection),
-                    BoardType.THREE);
+                    BoardType.getType(boardSelection));
 
-    game.render();
-    while (game.isRunning()) {
-      game.playTurn();
-      game.render();
-    }
+    game.run();
   }
 }
