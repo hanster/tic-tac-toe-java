@@ -26,12 +26,8 @@ public class GameTest {
 
   @Test
   public void newGameIsRunning() {
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+    GameParams params = new GameParams(player1, player2, new Board(), display);
+    Game game = new Game(params);
 
     assertThat(game.isRunning(), is(true));
   }
@@ -43,25 +39,18 @@ public class GameTest {
             Marker.O, Marker.O, Marker.O,
             Marker.O, Marker.O, Marker.O
     });
+    GameParams params = new GameParams(player1, player2, board, display);
 
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(board)
-            .display(display)
-            .build();
+
+    Game game = new Game(params);
 
     assertThat(game.isRunning(), is(false));
   }
 
   @Test
   public void gameRenderingDelegatesToDisplay() {
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+    GameParams params = new GameParams(player1, player2, new Board(), display);
+    Game game = new Game(params);
 
     game.render();
 
@@ -70,12 +59,8 @@ public class GameTest {
 
   @Test
   public void playTurnGetsMoveFromPlayer() {
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+    GameParams params = new GameParams(player1, player2, new Board(), display);
+    Game game = new Game(params);
 
     game.playTurn();
 
@@ -84,12 +69,8 @@ public class GameTest {
 
   @Test
   public void playTurnSwitchesCorrectly() {
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+    GameParams params = new GameParams(player1, player2, new Board(), display);
+    Game game = new Game(params);
 
     game.playTurn();
     game.playTurn();
@@ -102,12 +83,8 @@ public class GameTest {
   public void testFullGamePlays() {
     PlayerStub player1 = new PlayerStub(Marker.X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
     PlayerStub player2 = new PlayerStub(Marker.O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
-    Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(new Board())
-            .display(display)
-            .build();
+    GameParams params = new GameParams(player1, player2, new Board(), display);
+    Game game = new Game(params);
 
     game.run();
 

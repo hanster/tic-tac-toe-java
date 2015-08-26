@@ -1,8 +1,6 @@
 package com.samhan;
 
-import com.samhan.ui.ConsoleDisplay;
-import com.samhan.ui.ConsoleOptionMenu;
-import com.samhan.ui.ConsolePlayerInputOutput;
+import com.samhan.ui.*;
 
 public class TicTacToe {
   public static void main(String args[]) {
@@ -10,15 +8,13 @@ public class TicTacToe {
     ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(System.in, System.out);
     ConsoleDisplay display = new ConsoleDisplay(System.out);
 
-    String playerOneSelection = optionMenu.getSelection("Enter Player1 selection", PlayerType.options());
-    String playerTwoSelection = optionMenu.getSelection("Enter Player2 selection", PlayerType.options());
-
-    String boardSelection = optionMenu.getSelection("Enter Board size selection", BoardType.options());
-
-    Game game = new GameSetup(display, console)
-            .buildGame(PlayerType.getType(playerOneSelection),
-                    PlayerType.getType(playerTwoSelection),
-                    BoardType.getType(boardSelection));
+    ConsolePlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
+    ConsoleBoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
+    GameParams gameParams = new GameSetup(display, console)
+            .buildGame(playerSelector.getPlayerSelection(),
+                    playerSelector.getPlayerSelection(),
+                    boardSelector.getBoardSelection());
+    Game game = new Game(gameParams);
 
     game.run();
   }

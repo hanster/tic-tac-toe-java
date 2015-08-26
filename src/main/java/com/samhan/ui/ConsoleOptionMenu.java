@@ -3,7 +3,7 @@ package com.samhan.ui;
 import java.io.*;
 import java.util.Map;
 
-public class ConsoleOptionMenu {
+public class ConsoleOptionMenu implements OptionMenu {
   public static final String INVALID_SELECTION = "Invalid Selection.";
   private final BufferedReader input;
   private final PrintStream output;
@@ -15,6 +15,7 @@ public class ConsoleOptionMenu {
     this.output = output;
   }
 
+  @Override
   public String getSelection(String prompt, Map<String, String> options) {
     this.promptMessage = prompt;
     this.options = options;

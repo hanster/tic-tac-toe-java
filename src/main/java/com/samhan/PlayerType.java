@@ -28,6 +28,9 @@ public enum PlayerType {
         return playerType;
       }
     }
-    return null;
+    throw new RuntimeException("Unexpected Board Type");  }
+
+  public String getInput() {
+    return input;
   }
 }

@@ -14,6 +14,10 @@ public enum BoardType {
     this.displayText = displayText;
   }
 
+  public String getInput() {
+    return input;
+  }
+
   public static Map<String, String> options() {
     Map<String, String> options = new LinkedHashMap<>();
     for (BoardType boardType : BoardType.values()) {
@@ -21,12 +25,13 @@ public enum BoardType {
     }
     return options;
   }
+
   public static BoardType getType(String consoleInput) {
     for (BoardType boardType : BoardType.values()) {
       if (boardType.input.equals(consoleInput)) {
         return boardType;
       }
     }
-    return null;
+    throw new RuntimeException("Unexpected Board Type");
   }
 }

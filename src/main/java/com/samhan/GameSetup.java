@@ -17,17 +17,12 @@ public class GameSetup {
     this.playerInputOutput = playerInputOutput;
   }
 
-  public Game buildGame(PlayerType player1Type, PlayerType player2Type, BoardType boardType) {
+  public GameParams buildGame(PlayerType player1Type, PlayerType player2Type, BoardType boardType) {
     Player player1 = createPlayer(player1Type, Marker.X);
     Player player2 = createPlayer(player2Type, Marker.O);
     Board board = createBoard(boardType);
 
-    return new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .board(board)
-            .display(display)
-            .build();
+    return new GameParams(player1, player2, board, display);
   }
 
   private Player createPlayer(PlayerType playerType, Marker marker) {
