@@ -65,16 +65,20 @@ public class ConsoleDisplay implements Display {
     displayBlankLine();
     List<String> positions = offsetPositions(board);
     List<String> centeredPositions = centeredPositions(positions);
+    List<String> boardRows = splitIntoRows(board, centeredPositions);
+
+    output.println(StringUtils.join(boardRows, rowSeparator(board.size())));
+    displayBlankLine();
+  }
+
+  private List<String> splitIntoRows(Board board, List<String> centeredPositions) {
     List<String> boardRows = new ArrayList<>();
 
     for (int rowIndex = 0; rowIndex < board.size(); rowIndex++) {
       List<String> rowPositions = groupedRowPositions(board.size(), centeredPositions, rowIndex);
       boardRows.add(StringUtils.join(rowPositions, CELL_SEPARATOR));
     }
-
-    String boardOutput = StringUtils.join(boardRows, rowSeparator(board.size()));
-    output.println(boardOutput);
-    displayBlankLine();
+    return boardRows;
   }
 
   private List<String> groupedRowPositions(int boardSize, List<String> centeredPositions, int rowIndex) {
@@ -87,11 +91,11 @@ public class ConsoleDisplay implements Display {
 
   private List<String> offsetPositions(Board board) {
     List<String> positions = new ArrayList<>();
-    for (int i = 0; i < board.size() * board.size(); i++) {
-      if (board.isAvailable(i)) {
-        positions.add(Integer.toString(i + OFFSET));
+    for (int positionIndex = 0; positionIndex < board.size() * board.size(); positionIndex++) {
+      if (board.isAvailable(positionIndex)) {
+        positions.add(Integer.toString(positionIndex + OFFSET));
       } else {
-        positions.add(board.getMarkerAt(i).toString());
+        positions.add(board.getMarkerAt(positionIndex).toString());
       }
     }
     return positions;
