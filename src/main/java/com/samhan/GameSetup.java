@@ -19,7 +19,7 @@ public class GameSetup {
 
   public Game buildGame(PlayerType player1Type, PlayerType player2Type, BoardType boardType) {
     Player player1 = createPlayer(player1Type, Marker.X);
-    Player player2 = createPlayer(player2Type, Marker.X);
+    Player player2 = createPlayer(player2Type, Marker.O);
     Board board = createBoard(boardType);
 
     return new Game.Builder()

@@ -2,7 +2,6 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 import com.samhan.Marker;
-import com.samhan.ui.ConsolePlayerInputOutput;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -78,7 +77,7 @@ public class ConsolePlayerInputOutputTest {
 
     consoleIO.getMove(board);
 
-    assertThat(output.toString(), containsString("Move already taken"));
+    assertThat(output.toString(), containsString("Invalid Entry (1-9)"));
   }
 
   @Test

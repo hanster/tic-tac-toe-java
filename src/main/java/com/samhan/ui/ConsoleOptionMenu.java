@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Map;
 
 public class ConsoleOptionMenu {
+  public static final String INVALID_SELECTION = "Invalid Selection.";
   private final BufferedReader input;
   private final PrintStream output;
   private String promptMessage;
@@ -17,9 +18,14 @@ public class ConsoleOptionMenu {
   public String getSelection(String prompt, Map<String, String> options) {
     this.promptMessage = prompt;
     this.options = options;
-    output.println(promptMessage);
+
+    displayPrompt();
     displayOptions();
     return readSelection();
+  }
+
+  private void displayPrompt() {
+    output.println(promptMessage);
   }
 
   private String readSelection() {
@@ -27,7 +33,7 @@ public class ConsoleOptionMenu {
     if (valid(selection)) {
       return selection;
     } else {
-      displayError("Invalid Selection.");
+      displayError(INVALID_SELECTION);
       return getSelection(promptMessage, options);
     }
   }
