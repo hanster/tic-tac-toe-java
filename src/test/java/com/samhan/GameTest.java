@@ -1,7 +1,7 @@
 package com.samhan;
 
-import com.samhan.player.Player;
-import com.samhan.ui.Display;
+import com.samhan.Fakes.DisplaySpy;
+import com.samhan.Fakes.PlayerSpy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,20 +9,25 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GameTest {
-  private FakePlayer player1;
-  private FakePlayer player2;
+  private PlayerSpy player1;
+  private PlayerSpy player2;
   private DisplaySpy display;
 
   @Before
   public void setUp() {
-    player1 = new FakePlayer(Marker.X);
-    player2 = new FakePlayer(Marker.O);
+    player1 = new PlayerSpy(Marker.X);
+    player2 = new PlayerSpy(Marker.O);
     display = new DisplaySpy();
   }
 
   @Test
   public void newGameIsRunning() {
-    Game game = new Game(player1, player2, new Board(), display);
+    Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .board(new Board())
+            .display(display)
+            .build();
 
     assertThat(game.isRunning(), is(true));
   }
@@ -34,14 +39,25 @@ public class GameTest {
             Marker.O, Marker.O, Marker.O,
             Marker.O, Marker.O, Marker.O
     });
-    Game game = new Game(player1, player2, board, display);
+
+    Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .board(board)
+            .display(display)
+            .build();
 
     assertThat(game.isRunning(), is(false));
   }
 
   @Test
   public void gameRenderingDelegatesToDisplay() {
-    Game game = new Game(player1, player2, new Board(), display);
+    Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .board(new Board())
+            .display(display)
+            .build();
 
     game.render();
 
@@ -50,7 +66,12 @@ public class GameTest {
 
   @Test
   public void playTurnGetsMoveFromPlayer() {
-    Game game = new Game(player1, player2, new Board(), display);
+    Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .board(new Board())
+            .display(display)
+            .build();
 
     game.playTurn();
 
@@ -59,48 +80,18 @@ public class GameTest {
 
   @Test
   public void playTurnSwitchesCorrectly() {
-    Game game = new Game(player1, player2, new Board(), display);
+    Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .board(new Board())
+            .display(display)
+            .build();
 
     game.playTurn();
     game.playTurn();
 
     assertThat(player1.nextMoveTimesCalled, is(1));
     assertThat(player2.nextMoveTimesCalled, is(1));
-  }
-
-  private class FakePlayer implements Player {
-
-    private final Marker marker;
-    public int nextMoveTimesCalled;
-
-    public FakePlayer(Marker marker) {
-      this.nextMoveTimesCalled = 0;
-      this.marker = marker;
-    }
-
-    @Override
-    public Marker getMarker() {
-      return marker;
-    }
-
-    @Override
-    public int nextMove(Board board) {
-      nextMoveTimesCalled++;
-      return 0;
-    }
-  }
-
-  private class DisplaySpy implements Display {
-    public int renderTimesCalled;
-
-    public DisplaySpy() {
-      renderTimesCalled = 0;
-    }
-
-    @Override
-    public void render(Board board, Marker marker) {
-      renderTimesCalled++;
-    }
   }
 }
 

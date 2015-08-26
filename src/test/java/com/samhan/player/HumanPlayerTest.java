@@ -2,10 +2,9 @@ package com.samhan.player;
 
 
 import com.samhan.Board;
+import com.samhan.Fakes.PlayerInputOutputSpy;
 import com.samhan.Marker;
-import com.samhan.player.HumanPlayer;
-import com.samhan.player.Player;
-import com.samhan.ui.PlayerInputOuput;
+import com.samhan.ui.PlayerInputOutput;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -14,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class HumanPlayerTest {
   @Test
   public void hasAMarker() {
-    PlayerInputOuput input = new FakeUserInput();
+    PlayerInputOutput input = new PlayerInputOutputSpy();
     Player humanPlayer = new HumanPlayer(Marker.X, input);
 
     assertThat(humanPlayer.getMarker(), is(Marker.X));
@@ -22,7 +21,7 @@ public class HumanPlayerTest {
 
   @Test
   public void usesInputToGetTheMove() {
-    FakeUserInput input = new FakeUserInput();
+    PlayerInputOutputSpy input = new PlayerInputOutputSpy();
     Player humanPlayer = new HumanPlayer(Marker.X, input);
 
     humanPlayer.nextMove(new Board());
@@ -30,17 +29,4 @@ public class HumanPlayerTest {
     assertThat(input.getMoveTimesCalled, is(1));
   }
 
-  private class FakeUserInput implements PlayerInputOuput {
-    public int getMoveTimesCalled;
-
-    public FakeUserInput() {
-      getMoveTimesCalled = 0;
-    }
-    @Override
-
-    public int getMove(Board board) {
-      getMoveTimesCalled++;
-      return getMoveTimesCalled;
-    }
-  }
 }

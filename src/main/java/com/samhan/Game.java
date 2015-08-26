@@ -9,12 +9,11 @@ public class Game {
   private Board board;
   private final Display display;
 
-  public Game(Player player1, Player player2, Board board, Display display) {
-    this.player1 = player1;
-    this.player2 = player2;
-    this.board = board;
-    this.display = display;
-
+  public Game(Builder builder) {
+    this.player1 = builder.player1;
+    this.player2 = builder.player2;
+    this.board = builder.board;
+    this.display = builder.display;
   }
 
   public boolean isRunning() {
@@ -36,6 +35,41 @@ public class Game {
     }
     else {
       return player2;
+    }
+  }
+
+  public static class Builder {
+    private Player player1;
+    private Player player2;
+    private Board board;
+    private Display display;
+
+    public Builder() {
+
+    }
+
+    public Builder player1(Player player1) {
+      this.player1 = player1;
+      return this;
+    }
+
+    public Builder player2(Player player2) {
+      this.player2 = player2;
+      return this;
+    }
+
+    public Builder board(Board board) {
+      this.board = board;
+      return this;
+    }
+
+    public Builder display(Display display) {
+      this.display = display;
+      return this;
+    }
+
+    public Game build() {
+      return new Game(this);
     }
   }
 }

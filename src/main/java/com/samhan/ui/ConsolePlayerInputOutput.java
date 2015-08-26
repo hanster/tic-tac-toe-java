@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsolePlayerInputOutput implements PlayerInputOuput {
+public class ConsolePlayerInputOutput implements PlayerInputOutput {
   public static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
   public static final String MOVE_ALREADY_TAKEN = "Move already taken";
   public static final int OFFSET = 1;
