@@ -9,8 +9,12 @@ public class ConsolePlayerSelection {
     this.optionMenu = optionMenu;
   }
 
-  public PlayerType getPlayerSelection() {
-    String playerSelection = optionMenu.getSelection("Enter a Player selection", PlayerType.options());
+  public PlayerType select(String playerNumber) {
+    String playerSelection = optionMenu.getSelection(getPrompt(playerNumber), PlayerType.options());
     return PlayerType.getType(playerSelection);
+  }
+
+  private String getPrompt(String playerNumber) {
+    return String.format("Enter a Player%s selection", playerNumber);
   }
 }

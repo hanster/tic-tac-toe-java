@@ -11,9 +11,9 @@ public class TicTacToe {
     ConsolePlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
     ConsoleBoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
     GameParams gameParams = new GameSetup(display, console)
-            .buildGame(playerSelector.getPlayerSelection(),
-                    playerSelector.getPlayerSelection(),
-                    boardSelector.getBoardSelection());
+            .buildGame(playerSelector.select("1"),
+                    playerSelector.select("2"),
+                    boardSelector.select());
     Game game = new Game(gameParams);
 
     game.run();

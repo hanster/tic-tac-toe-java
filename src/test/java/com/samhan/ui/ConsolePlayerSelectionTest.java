@@ -13,7 +13,7 @@ public class ConsolePlayerSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.HUMAN.getInput());
     ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
-    PlayerType playerType = selector.getPlayerSelection();
+    PlayerType playerType = selector.select("1");
 
     assertThat(playerType, is(PlayerType.HUMAN));
   }
@@ -23,7 +23,7 @@ public class ConsolePlayerSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.EASY_COMPUTER.getInput());
     ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
-    PlayerType playerType = selector.getPlayerSelection();
+    PlayerType playerType = selector.select("1");
 
     assertThat(playerType, is(PlayerType.EASY_COMPUTER));
   }
@@ -33,7 +33,7 @@ public class ConsolePlayerSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub(PlayerType.HARD_COMPUTER.getInput());
     ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
-    PlayerType playerType = selector.getPlayerSelection();
+    PlayerType playerType = selector.select("1");
 
     assertThat(playerType, is(PlayerType.HARD_COMPUTER));
   }
@@ -43,6 +43,6 @@ public class ConsolePlayerSelectionTest {
     OptionMenu optionMenu = new OptionMenuStub("5");
     ConsolePlayerSelection selector = new ConsolePlayerSelection(optionMenu);
 
-    selector.getPlayerSelection();
+    selector.select("1");
   }
 }
