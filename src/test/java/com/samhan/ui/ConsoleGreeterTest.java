@@ -29,9 +29,17 @@ public class ConsoleGreeterTest {
   }
 
   @Test
-  public void rendersAWelcomeMessage() {
+  public void greetsWithAWelcomeMessage() {
     greeter.greet();
 
     assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
+  }
+
+  @Test
+  public void farewellMessage() {
+    greeter.farewell();
+
+    assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
+
   }
 }

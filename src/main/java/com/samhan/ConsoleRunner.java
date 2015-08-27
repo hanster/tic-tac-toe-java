@@ -31,5 +31,6 @@ public class ConsoleRunner {
 
       game.run();
     } while (asker.doPlayAgain());
+    greeter.farewell();
   }
 }
