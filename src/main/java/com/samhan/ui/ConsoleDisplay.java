@@ -15,12 +15,12 @@ public class ConsoleDisplay implements Display {
   private static final int OFFSET = 1;
   private static final int CELL_WIDTH = 5;
   private static final String CURRENT_PLAYER = "Current Player: %s";
-  public static final String CELL_SEPARATOR = "|";
-  public static final String ROW_CELL_SEPARATOR = "-";
-  public static final String CROSS_SEPARATOR = "+";
-  public static final String GAME_OVER_RESULT = "Game Over! Result: %s";
-  public static final String DRAW = "Draw";
-  public static final String WINS = " wins";
+  private static final String CELL_SEPARATOR = "|";
+  private static final String ROW_CELL_SEPARATOR = "-";
+  private static final String CROSS_SEPARATOR = "+";
+  private static final String GAME_OVER_RESULT = "Game Over! Result: %s";
+  private static final String DRAW = "Draw";
+  private static final String WINS = " wins";
   private final PrintStream output;
 
   public ConsoleDisplay(PrintStream output) {

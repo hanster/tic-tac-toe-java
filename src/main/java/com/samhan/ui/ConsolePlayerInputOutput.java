@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConsolePlayerInputOutput implements PlayerInputOutput {
-  public static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
-  public static final String ENTER_MOVE = "Enter move: ";
+  private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
+  private static final String ENTER_MOVE = "Enter move: ";
   private final PrintStream output;
   private final BufferedReader input;
   private Board board;

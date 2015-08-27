@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Map;
 
 public class ConsoleOptionMenu implements OptionMenu {
-  public static final String INVALID_SELECTION = "Invalid Selection.";
+  private static final String INVALID_SELECTION = "Invalid Selection.";
   private final BufferedReader input;
   private final PrintStream output;
   private String promptMessage;
