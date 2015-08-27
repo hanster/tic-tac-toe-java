@@ -44,7 +44,6 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
     output.println(String.format(INVALID_ENTRY, board.size() * board.size()));
   }
 
-
   private String readInput() {
     try {
       return input.readLine();
