@@ -5,14 +5,14 @@ import com.samhan.Marker;
 import com.samhan.ui.Display;
 
 public class DisplaySpy implements Display {
-  public int renderTimesCalled;
+    public int renderTimesCalled;
 
-  public DisplaySpy() {
-    renderTimesCalled = 0;
-  }
+    public DisplaySpy() {
+        renderTimesCalled = 0;
+    }
 
-  @Override
-  public void render(Board board, Marker marker) {
-    renderTimesCalled++;
-  }
+    @Override
+    public void render(Board board, Marker marker) {
+        renderTimesCalled++;
+    }
 }

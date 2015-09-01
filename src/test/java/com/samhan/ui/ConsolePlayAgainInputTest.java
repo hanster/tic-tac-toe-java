@@ -11,59 +11,61 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConsolePlayAgainInputTest {
-  private ByteArrayOutputStream output;
-  private ConsolePlayAgainInput console;
+    private ByteArrayOutputStream output;
+    private ConsolePlayAgainInput console;
 
-  private void setUpQueuedConsoleInput (String[] listOfInputs) {
-    String totalInputs = "";
-    for (String input : listOfInputs) {
-      totalInputs = totalInputs + input + "\n";
+    private void setUpQueuedConsoleInput(String[] listOfInputs) {
+        String totalInputs = "";
+        for (String input : listOfInputs) {
+            totalInputs = totalInputs + input + "\n";
+        }
+        output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        console = new ConsolePlayAgainInput(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
     }
-    output = new ByteArrayOutputStream();
-    PrintStream printStream = new PrintStream(output);
-    console = new ConsolePlayAgainInput(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
-  }
-  @Test
-  public void displaysQuestion() {
-    setUpQueuedConsoleInput(new String[] {"Y"});
 
-    console.doPlayAgain();
+    @Test
+    public void displaysQuestion() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
 
-    assertThat(output.toString(), containsString("Do you want to play again?"));
-  }
+        console.doPlayAgain();
 
-  @Test
-  public void yReturnsTrue() {
-    setUpQueuedConsoleInput(new String[] {"Y"});
+        assertThat(output.toString(), containsString("Do you want to play again?"));
+    }
 
-    assertThat(console.doPlayAgain(), is(true));
-  }
+    @Test
+    public void yReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
 
-  @Test
-  public void yesReturnsTrue() {
-    setUpQueuedConsoleInput(new String[] {"Yes"});
+        assertThat(console.doPlayAgain(), is(true));
+    }
 
-    assertThat(console.doPlayAgain(), is(true));
-  }
-  @Test
-  public void nReturnsFalse() {
-    setUpQueuedConsoleInput(new String[] {"N"});
+    @Test
+    public void yesReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Yes"});
 
-    assertThat(console.doPlayAgain(), is(false));
-  }
+        assertThat(console.doPlayAgain(), is(true));
+    }
 
-  @Test
-  public void noReturnsFalse() {
-    setUpQueuedConsoleInput(new String[] {"No"});
+    @Test
+    public void nReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"N"});
 
-    assertThat(console.doPlayAgain(), is(false));
-  }
+        assertThat(console.doPlayAgain(), is(false));
+    }
 
-  @Test
-  public void promptsUntilValid() {
-    setUpQueuedConsoleInput(new String[] {"Nope", "O", "n"});
+    @Test
+    public void noReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"No"});
 
-    assertThat(console.doPlayAgain(), is(false));
-    assertThat(output.toString(), containsString("Invalid Entry. [Y]es or [N]o"));
-  }
+        assertThat(console.doPlayAgain(), is(false));
+    }
+
+    @Test
+    public void promptsUntilValid() {
+        setUpQueuedConsoleInput(new String[]{"Nope", "O", "n"});
+
+        assertThat(console.doPlayAgain(), is(false));
+        assertThat(output.toString(), containsString("Invalid Entry. [Y]es or [N]o"));
+    }
 }

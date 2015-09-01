@@ -11,35 +11,35 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ConsoleGreeterTest {
-  private ByteArrayOutputStream output;
-  private ConsoleGreeter greeter;
+    private ByteArrayOutputStream output;
+    private ConsoleGreeter greeter;
 
-  @Before
-  public void setUp() {
-    output = new ByteArrayOutputStream();
-    PrintStream printStream = new PrintStream(output);
-    greeter = new ConsoleGreeter(printStream);
-  }
+    @Before
+    public void setUp() {
+        output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        greeter = new ConsoleGreeter(printStream);
+    }
 
-  @Test
-  public void clearsTheScreen() {
-    greeter.greet();
+    @Test
+    public void clearsTheScreen() {
+        greeter.greet();
 
-    assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
-  }
+        assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
+    }
 
-  @Test
-  public void greetsWithAWelcomeMessage() {
-    greeter.greet();
+    @Test
+    public void greetsWithAWelcomeMessage() {
+        greeter.greet();
 
-    assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
-  }
+        assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
+    }
 
-  @Test
-  public void farewellMessage() {
-    greeter.farewell();
+    @Test
+    public void farewellMessage() {
+        greeter.farewell();
 
-    assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
+        assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
 
-  }
+    }
 }

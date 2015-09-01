@@ -4,7 +4,7 @@ import com.samhan.Board;
 import com.samhan.Marker;
 
 public interface Player {
-  Marker getMarker();
+    Marker getMarker();
 
-  int nextMove(Board board);
+    int nextMove(Board board);
 }

@@ -5,21 +5,21 @@ import com.samhan.Marker;
 import com.samhan.ui.PlayerInputOutput;
 
 public class Human implements Player {
-  private Marker marker;
-  private PlayerInputOutput input;
+    private Marker marker;
+    private PlayerInputOutput input;
 
-  public Human(Marker marker, PlayerInputOutput input) {
-    this.marker = marker;
-    this.input = input;
-  }
+    public Human(Marker marker, PlayerInputOutput input) {
+        this.marker = marker;
+        this.input = input;
+    }
 
-  @Override
-  public Marker getMarker() {
-    return marker;
-  }
+    @Override
+    public Marker getMarker() {
+        return marker;
+    }
 
-  @Override
-  public int nextMove(Board board) {
-    return input.getMove(board);
-  }
+    @Override
+    public int nextMove(Board board) {
+        return input.getMove(board);
+    }
 }
