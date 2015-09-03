@@ -13,7 +13,7 @@
     
     
 #### Playing Instructions ####
-1. The game will prompt you twice for you choice of players:
+1. The game will prompt you twice for your choice of players:
   * Human Player
   * Easy Computer Player
   * Hard Computer Player
