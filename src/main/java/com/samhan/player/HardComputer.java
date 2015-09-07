@@ -28,8 +28,8 @@ public class HardComputer implements Player {
     @Override
     public int nextMove(Board board) {
         if (board.availableMoves().size() <= MOVE_LIMIT) {
-            Move move = negamax(board, START_ALPHA, START_BETA, DEPTH_LIMIT, marker);
-            return move.index;
+            ScoredMove scoredMove = negamax(board, START_ALPHA, START_BETA, DEPTH_LIMIT, marker);
+            return scoredMove.move;
         } else {
             return randomMove(board);
         }
@@ -40,32 +40,32 @@ public class HardComputer implements Player {
         return board.availableMoves().get(idx);
     }
 
-    private Move negamax(Board board, int alpha, int beta, int depth, Marker marker) {
-        Move bestMove = new Move(-1, -101);
+    private ScoredMove negamax(Board board, int alpha, int beta, int depth, Marker marker) {
+        ScoredMove bestScoredMove = new ScoredMove(-1, -101);
         if (canEvaluate(depth, board)) {
             return evaluatedMove(board, marker);
         }
-        for (Integer moveIndex : board.availableMoves()) {
-            Board nextBoard = board.placeAt(moveIndex, marker);
-            int nodeValue = -negamax(nextBoard, -beta, -alpha, depth - 1, marker.opponent()).value;
-            if (nodeValue > bestMove.value) {
-                bestMove.value = nodeValue;
-                bestMove.index = moveIndex;
+        for (Integer move : board.availableMoves()) {
+            Board nextBoard = board.placeAt(move, marker);
+            int nodeValue = -negamax(nextBoard, -beta, -alpha, depth - 1, marker.opponent()).score;
+            if (nodeValue > bestScoredMove.score) {
+                bestScoredMove.score = nodeValue;
+                bestScoredMove.move = move;
             }
             alpha = max(alpha, nodeValue);
             if (alpha > beta) {
                 break;
             }
         }
-        return bestMove;
+        return bestScoredMove;
     }
 
     private boolean canEvaluate(int depth, Board board) {
         return depth == 0 || board.isFinished();
     }
 
-    private Move evaluatedMove(Board board, Marker marker) {
-        return new Move(-1, nodeValue(board, marker));
+    private ScoredMove evaluatedMove(Board board, Marker marker) {
+        return new ScoredMove(-1, nodeValue(board, marker));
     }
 
     private int nodeValue(Board board, Marker marker) {
@@ -80,13 +80,13 @@ public class HardComputer implements Player {
         return winner == marker ? WIN_SCORE : -WIN_SCORE;
     }
 
-    private class Move {
-        public int index;
-        public int value;
+    private class ScoredMove {
+        public int move;
+        public int score;
 
-        public Move(int index, int value) {
-            this.index = index;
-            this.value = value;
+        public ScoredMove(int move, int score) {
+            this.move = move;
+            this.score = score;
         }
     }
 }
