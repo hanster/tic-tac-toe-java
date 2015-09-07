@@ -9,6 +9,8 @@ import com.samhan.ui.Display;
 import com.samhan.ui.PlayerInputOutput;
 import com.samhan.ui.PlayerSelection;
 
+import static com.samhan.Marker.*;
+
 public class GameSetup {
 
     public static final String PLAYER_ONE = "1";
@@ -26,8 +28,8 @@ public class GameSetup {
     }
 
     public GameParams buildGame() {
-        Player player1 = createPlayer(playerSelection.selectType(PLAYER_ONE), Marker.X);
-        Player player2 = createPlayer(playerSelection.selectType(PLAYER_TWO), Marker.O);
+        Player player1 = createPlayer(playerSelection.selectType(PLAYER_ONE), X);
+        Player player2 = createPlayer(playerSelection.selectType(PLAYER_TWO), O);
         Board board = createBoard(boardSelection.selectType());
 
         return new GameParams(player1, player2, board, display);

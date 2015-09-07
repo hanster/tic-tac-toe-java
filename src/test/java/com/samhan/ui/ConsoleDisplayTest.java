@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.samhan.Marker.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -32,7 +33,7 @@ public class ConsoleDisplayTest {
                         "-----+-----+-----\n" +
                         "  7  |  8  |  9  \n";
 
-        display.render(new Board(3), Marker.X);
+        display.render(new Board(3), X);
 
         assertThat(output.toString(), containsString(emptyBoard));
     }
@@ -50,14 +51,14 @@ public class ConsoleDisplayTest {
                         "-----+-----+-----+-----\n" +
                         " 13  | 14  | 15  | 16  \n";
 
-        display.render(new Board(4), Marker.X);
+        display.render(new Board(4), X);
 
         assertThat(output.toString(), containsString(emptyBoard));
     }
 
     @Test
     public void clearsTheScreen() {
-        display.render(new Board(), Marker.X);
+        display.render(new Board(), X);
 
         assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
     }
@@ -74,20 +75,20 @@ public class ConsoleDisplayTest {
                         "-----+-----+-----+-----\n" +
                         "  X  | 14  | 15  | 16  \n";
         Board board = new Board(4, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.X, Marker.EMPTY,
-                Marker.EMPTY, Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, X,     EMPTY,
+                EMPTY, X,     EMPTY, EMPTY,
+                X,     EMPTY, EMPTY, EMPTY
         });
 
-        display.render(board, Marker.X);
+        display.render(board, X);
 
         assertThat(output.toString(), containsString(renderedBoard));
     }
 
     @Test
     public void displayTheNextPlayerTurn() {
-        display.render(new Board(), Marker.X);
+        display.render(new Board(), X);
 
         assertThat(output.toString(), containsString("Current Player: X"));
     }
@@ -95,12 +96,12 @@ public class ConsoleDisplayTest {
     @Test
     public void displayDrawEndStatus() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.O
+                X, O, X,
+                X, O, X,
+                O, X, O
         });
 
-        display.render(board, Marker.X);
+        display.render(board, X);
 
         assertThat(output.toString(), containsString("Game Over! Result: Draw"));
     }
@@ -108,12 +109,12 @@ public class ConsoleDisplayTest {
     @Test
     public void displayXWinnerEndStatus() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.X
+                X, O, X,
+                O, O, X,
+                O, X, X
         });
 
-        display.render(board, Marker.O);
+        display.render(board, O);
 
         assertThat(output.toString(), containsString("Game Over! Result: X wins"));
     }
@@ -122,19 +123,19 @@ public class ConsoleDisplayTest {
     @Test
     public void displayOWinnerEndStatus() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.O, Marker.O,
-                Marker.O, Marker.X, Marker.X
+                X, O, X,
+                O, O, O,
+                O, X, X
         });
 
-        display.render(board, Marker.X);
+        display.render(board, X);
 
         assertThat(output.toString(), containsString("Game Over! Result: O wins"));
     }
 
     @Test
     public void statusHasABlankLineBeforeAndAfter() {
-        display.render(new Board(), Marker.X);
+        display.render(new Board(), X);
 
         assertThat(output.toString(), containsString("\nCurrent Player: X\n\n"));
     }
@@ -148,7 +149,7 @@ public class ConsoleDisplayTest {
                         "-----+-----+-----\n" +
                         "  7  |  8  |  9  \n\n";
 
-        display.render(new Board(3), Marker.X);
+        display.render(new Board(3), X);
 
         assertThat(output.toString(), containsString(emptyBoard));
 

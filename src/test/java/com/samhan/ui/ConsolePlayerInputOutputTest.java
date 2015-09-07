@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.samhan.Marker.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -70,9 +71,9 @@ public class ConsolePlayerInputOutputTest {
     public void displayMoveAlreadyTaken() {
         setUpQueuedConsoleInput(new String[]{"5", "6"});
         Board board = new Board(3, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.O, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, O,     EMPTY,
+                EMPTY, EMPTY, EMPTY,
         });
 
         consoleIO.getMove(board);
@@ -84,9 +85,9 @@ public class ConsolePlayerInputOutputTest {
     public void displayInvalidEntryWhenMoveOutOfRange() {
         setUpQueuedConsoleInput(new String[]{"0", "6"});
         Board board = new Board(3, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.O, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, O,     EMPTY,
+                EMPTY, EMPTY, EMPTY,
         });
 
         consoleIO.getMove(board);

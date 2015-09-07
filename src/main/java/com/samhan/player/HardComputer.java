@@ -5,6 +5,7 @@ import com.samhan.Marker;
 
 import java.util.Random;
 
+import static com.samhan.Marker.*;
 import static java.lang.Math.max;
 
 public class HardComputer implements Player {
@@ -61,7 +62,7 @@ public class HardComputer implements Player {
     }
 
     private Marker opponent(Marker marker) {
-        return marker == Marker.X ? Marker.O : Marker.X;
+        return marker == X ? O : X;
     }
 
     private boolean canEvaluate(int depth, Board board) {

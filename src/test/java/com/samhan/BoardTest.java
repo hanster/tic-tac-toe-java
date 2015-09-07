@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.samhan.Marker.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,7 +21,7 @@ public class BoardTest {
     public void notEmptyAfterPlacingAMarker() {
         Board board = new Board();
 
-        Board newBoard = board.placeAt(0, Marker.X);
+        Board newBoard = board.placeAt(0, X);
 
         assertThat(newBoard.isEmpty(), is(false));
     }
@@ -30,7 +31,7 @@ public class BoardTest {
         Board board = new Board();
         assertThat(board.isAvailable(0), is(true));
 
-        Board newBoard = board.placeAt(0, Marker.X);
+        Board newBoard = board.placeAt(0, X);
 
         assertThat(newBoard.isAvailable(0), is(false));
     }
@@ -39,7 +40,7 @@ public class BoardTest {
     public void listAvailableMoves() {
         Board board = new Board();
 
-        Board newBoard = board.placeAt(5, Marker.X);
+        Board newBoard = board.placeAt(5, X);
 
         assertThat(newBoard.availableMoves(), CoreMatchers.<List>is(Arrays.asList(0, 1, 2, 3, 4, 6, 7, 8)));
     }
@@ -70,99 +71,99 @@ public class BoardTest {
     @Test
     public void winningTopHorizontalRow() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.X, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+                X,     X,     X,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
     @Test
     public void winningMiddleHorizontalRow() {
         Board board = new Board(3, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.X, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+                EMPTY, EMPTY, EMPTY,
+                X,     X,     X,
+                EMPTY, EMPTY, EMPTY
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
 
     @Test
     public void winningBottomHorizontalRowFourBoard() {
         Board board = new Board(4, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.X, Marker.X, Marker.X
+                EMPTY, EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY, EMPTY,
+                X,     X,     X,     X
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
     @Test
     public void winningLeftColumn() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.EMPTY, Marker.EMPTY
+                X, EMPTY, EMPTY,
+                X, EMPTY, EMPTY,
+                X, EMPTY, EMPTY
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
 
     @Test
     public void winningRightColumnFourBoard() {
         Board board = new Board(4, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, EMPTY, X
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
     @Test
     public void winningDiagonalLeftRight() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.X, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.X
+                X,     EMPTY, EMPTY,
+                EMPTY, X,     EMPTY,
+                EMPTY, EMPTY, X
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
 
     @Test
     public void winningDiagonalRightLeftFourBoard() {
         Board board = new Board(4, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.X, Marker.EMPTY,
-                Marker.EMPTY, Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, X,     EMPTY,
+                EMPTY, X,     EMPTY, EMPTY,
+                X,     EMPTY, EMPTY, EMPTY
         });
 
         assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(Marker.X));
+        assertThat(board.getWinner(), is(X));
     }
 
     @Test
     public void gameIsOverWithAWinner() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.X, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
+                X,     X,     X,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY
         });
 
         assertThat(board.isFinished(), is(true));
@@ -171,9 +172,9 @@ public class BoardTest {
     @Test
     public void boardIsDrawn() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.O
+                X, O, X,
+                X, O, X,
+                O, X, O
         });
 
         assertThat(board.hasWinner(), is(false));

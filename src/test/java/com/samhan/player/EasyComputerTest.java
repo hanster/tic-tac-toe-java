@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.samhan.Marker.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
@@ -13,19 +14,19 @@ import static org.hamcrest.core.IsCollectionContaining.hasItems;
 public class EasyComputerTest {
     @Test
     public void hasAMarker() {
-        EasyComputer computer = new EasyComputer(Marker.O);
+        EasyComputer computer = new EasyComputer(O);
 
-        assertThat(computer.getMarker(), is(Marker.O));
+        assertThat(computer.getMarker(), is(O));
     }
 
     @Test
     public void choosesOnlyAvailableMove() {
         Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.EMPTY
+                X, O, X,
+                X, O, X,
+                O, X, EMPTY
         });
-        EasyComputer computer = new EasyComputer(Marker.O);
+        EasyComputer computer = new EasyComputer(O);
 
         int computerMove = computer.nextMove(board);
 
@@ -35,7 +36,7 @@ public class EasyComputerTest {
     @Test
     public void choosesFromOnlyAvailableMoves() {
         Board board = new Board(3);
-        EasyComputer computer = new EasyComputer(Marker.O);
+        EasyComputer computer = new EasyComputer(O);
         List<Integer> availableMoves = board.availableMoves();
 
         int computerMove = computer.nextMove(board);

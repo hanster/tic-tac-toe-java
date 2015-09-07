@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import static com.samhan.Marker.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -18,8 +19,8 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        player1 = new PlayerStub(Marker.X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
-        player2 = new PlayerStub(Marker.O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
+        player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
+        player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
         display = new DisplaySpy();
     }
 
@@ -34,9 +35,9 @@ public class GameTest {
     @Test
     public void gameIsNotRunningIfBoardIsFinished() {
         Board board = new Board(3, new Marker[]{
-                Marker.O, Marker.O, Marker.O,
-                Marker.O, Marker.O, Marker.O,
-                Marker.O, Marker.O, Marker.O
+                O, O, O,
+                O, O, O,
+                O, O, O
         });
         GameParams params = new GameParams(player1, player2, board, display);
 
@@ -80,8 +81,8 @@ public class GameTest {
 
     @Test
     public void testFullGamePlays() {
-        PlayerStub player1 = new PlayerStub(Marker.X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
-        PlayerStub player2 = new PlayerStub(Marker.O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
+        PlayerStub player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
+        PlayerStub player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
         GameParams params = new GameParams(player1, player2, new Board(), display);
         Game game = new Game(params);
 
