@@ -2,6 +2,7 @@ package com.samhan.player;
 
 import com.samhan.Board;
 import com.samhan.Marker;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,17 +13,20 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HardComputerTest {
+    private HardComputer computer;
+
+    @Before
+    public void setUp() {
+        computer = new HardComputer(O);
+    }
     @Test
     public void hasAMarker() {
-        HardComputer computer = new HardComputer(O);
-
         assertThat(computer.getMarker(), is(O));
     }
 
     @Test
     public void makesAValidMove() {
         Board emptyBoard = new Board();
-        HardComputer computer = new HardComputer(O);
 
         int computerMove = computer.nextMove(emptyBoard);
 
@@ -36,7 +40,6 @@ public class HardComputerTest {
                 X, O, X,
                 O, X, EMPTY
         });
-        HardComputer computer = new HardComputer(O);
 
         int computerMove = computer.nextMove(board);
 
@@ -62,7 +65,6 @@ public class HardComputerTest {
                 O, X,     X,
                 O, EMPTY, EMPTY
         });
-        HardComputer computer = new HardComputer(O);
 
         assertThat(computer.nextMove(board), is(9));
     }
@@ -75,7 +77,6 @@ public class HardComputerTest {
                 EMPTY, EMPTY, X,     EMPTY,
                 EMPTY, O,     O,     EMPTY,
         });
-        HardComputer computer = new HardComputer(O);
 
         int computerMove = computer.nextMove(board);
 
@@ -90,7 +91,6 @@ public class HardComputerTest {
                 EMPTY, EMPTY, EMPTY, EMPTY,
                 EMPTY, EMPTY, EMPTY, EMPTY,
         });
-        HardComputer computer = new HardComputer(O);
 
         int computerMove = computer.nextMove(board);
         List<Integer> availableMoves = board.availableMoves();

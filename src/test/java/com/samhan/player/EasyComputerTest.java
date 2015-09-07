@@ -2,6 +2,7 @@ package com.samhan.player;
 
 import com.samhan.Board;
 import com.samhan.Marker;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,10 +13,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 
 public class EasyComputerTest {
+    private EasyComputer computer;
+
+    @Before
+    public void setUp() {
+        computer = new EasyComputer(O);
+    }
     @Test
     public void hasAMarker() {
-        EasyComputer computer = new EasyComputer(O);
-
         assertThat(computer.getMarker(), is(O));
     }
 
@@ -26,7 +31,6 @@ public class EasyComputerTest {
                 X, O, X,
                 O, X, EMPTY
         });
-        EasyComputer computer = new EasyComputer(O);
 
         int computerMove = computer.nextMove(board);
 
@@ -36,7 +40,6 @@ public class EasyComputerTest {
     @Test
     public void choosesFromOnlyAvailableMoves() {
         Board board = new Board(3);
-        EasyComputer computer = new EasyComputer(O);
         List<Integer> availableMoves = board.availableMoves();
 
         int computerMove = computer.nextMove(board);
