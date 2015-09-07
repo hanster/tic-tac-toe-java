@@ -5,7 +5,6 @@ import com.samhan.Marker;
 
 import java.util.Random;
 
-import static com.samhan.Marker.*;
 import static java.lang.Math.max;
 
 public class HardComputer implements Player {
@@ -48,7 +47,7 @@ public class HardComputer implements Player {
         }
         for (Integer moveIndex : board.availableMoves()) {
             Board nextBoard = board.placeAt(moveIndex, marker);
-            int nodeValue = -negamax(nextBoard, -beta, -alpha, depth - 1, opponent(marker)).value;
+            int nodeValue = -negamax(nextBoard, -beta, -alpha, depth - 1, marker.opponent()).value;
             if (nodeValue > bestMove.value) {
                 bestMove.value = nodeValue;
                 bestMove.index = moveIndex;
@@ -59,10 +58,6 @@ public class HardComputer implements Player {
             }
         }
         return bestMove;
-    }
-
-    private Marker opponent(Marker marker) {
-        return marker == X ? O : X;
     }
 
     private boolean canEvaluate(int depth, Board board) {
