@@ -1,7 +1,7 @@
 package com.samhan.ui;
 
 import com.samhan.BoardType;
-import com.samhan.Fakes.OptionMenuStub;
+import com.samhan.fakes.OptionMenuStub;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

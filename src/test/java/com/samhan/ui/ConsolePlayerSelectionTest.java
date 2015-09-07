@@ -1,6 +1,6 @@
 package com.samhan.ui;
 
-import com.samhan.Fakes.OptionMenuStub;
+import com.samhan.fakes.OptionMenuStub;
 import com.samhan.PlayerType;
 import org.junit.Test;
 

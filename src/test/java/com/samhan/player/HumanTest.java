@@ -2,7 +2,7 @@ package com.samhan.player;
 
 
 import com.samhan.Board;
-import com.samhan.Fakes.PlayerInputOutputSpy;
+import com.samhan.fakes.PlayerInputOutputSpy;
 import com.samhan.ui.PlayerInputOutput;
 import org.junit.Test;
 

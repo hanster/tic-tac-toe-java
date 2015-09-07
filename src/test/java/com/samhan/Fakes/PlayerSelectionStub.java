@@ -1,4 +1,4 @@
-package com.samhan.Fakes;
+package com.samhan.fakes;
 
 import com.samhan.PlayerType;
 import com.samhan.ui.PlayerSelection;

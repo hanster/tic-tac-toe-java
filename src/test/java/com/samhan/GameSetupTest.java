@@ -1,8 +1,8 @@
 package com.samhan;
 
-import com.samhan.Fakes.DisplaySpy;
-import com.samhan.Fakes.PlayerInputOutputSpy;
-import com.samhan.Fakes.PlayerSelectionStub;
+import com.samhan.fakes.DisplaySpy;
+import com.samhan.fakes.PlayerInputOutputSpy;
+import com.samhan.fakes.PlayerSelectionStub;
 import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;

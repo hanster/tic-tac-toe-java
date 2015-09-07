@@ -1,7 +1,7 @@
 package com.samhan;
 
-import com.samhan.Fakes.DisplaySpy;
-import com.samhan.Fakes.PlayerStub;
+import com.samhan.fakes.DisplaySpy;
+import com.samhan.fakes.PlayerStub;
 import org.junit.Before;
 import org.junit.Test;
 
