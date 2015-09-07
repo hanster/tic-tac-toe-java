@@ -6,9 +6,8 @@ import java.util.List;
 
 public class Board {
     public static final int OFFSET = 1;
-    private Marker[] marks;
-    private int boardSize;
-
+    private final Marker[] marks;
+    private final int boardSize;
 
     public Board() {
         this(3);
@@ -84,6 +83,10 @@ public class Board {
         return null;
     }
 
+    public int movesMade() {
+        return marks.length - availableMoves().size();
+    }
+
     private boolean hasNoMoreMoves() {
         return availableMoves().size() == 0;
     }
@@ -150,10 +153,6 @@ public class Board {
             rightLeftMarkers.add(marks[i * boardSize - i]);
         }
         return new Line(rightLeftMarkers);
-    }
-
-    public int movesMade() {
-        return marks.length - availableMoves().size();
     }
 
     private class Line {

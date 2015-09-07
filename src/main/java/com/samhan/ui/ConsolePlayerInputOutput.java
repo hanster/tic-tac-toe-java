@@ -52,7 +52,7 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
         }
     }
 
-    public boolean valid(String selection) {
+    private boolean valid(String selection) {
         List<String> validSelections = validSelections();
         return validSelections.contains(selection);
     }

@@ -5,8 +5,8 @@ import com.samhan.Marker;
 import com.samhan.ui.PlayerInputOutput;
 
 public class Human implements Player {
-    private Marker marker;
-    private PlayerInputOutput input;
+    private final Marker marker;
+    private final PlayerInputOutput input;
 
     public Human(Marker marker, PlayerInputOutput input) {
         this.marker = marker;
