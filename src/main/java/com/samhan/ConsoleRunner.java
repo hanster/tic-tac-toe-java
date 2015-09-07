@@ -19,19 +19,18 @@ public class ConsoleRunner {
         ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(input, output);
         ConsoleDisplay display = new ConsoleDisplay(output);
         ConsolePlayAgainInput asker = new ConsolePlayAgainInput(input, output);
-        ConsoleGreeter greeter = new ConsoleGreeter(output);
 
         PlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
         BoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
         GameSetup gameSetup = new GameSetup(display, console, playerSelector, boardSelector);
 
         do {
-            greeter.greet();
+            asker.greet();
             GameParams gameParams = gameSetup.buildGame();
             Game game = new Game(gameParams);
 
             game.run();
         } while (asker.doPlayAgain());
-        greeter.farewell();
+        asker.farewell();
     }
 }

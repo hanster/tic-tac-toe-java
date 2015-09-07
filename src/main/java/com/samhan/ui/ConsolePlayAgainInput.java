@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.Arrays;
 
 public class ConsolePlayAgainInput {
+    private static final String ANSI_CLS = "\u001b[2J";
+    private static final String ANSI_HOME = "\u001b[H";
+    private static final String WELCOME_MESSAGE = "Welcome to TicTcToe\n\nTime to set up!\n";
+    private static final String FAREWELL_MESSAGE = "\nThanks for playing!\n\nBye!";
     private static final String PLAY_AGAIN = "Do you want to play again? ";
     private static final String INVALID_ENTRY = "Invalid Entry. [Y]es or [N]o";
     private final PrintStream output;
@@ -17,6 +21,15 @@ public class ConsolePlayAgainInput {
     public boolean doPlayAgain() {
         displayPrompt();
         return readSelection();
+    }
+
+    public void greet() {
+        output.print(ANSI_CLS + ANSI_HOME);
+        output.println(WELCOME_MESSAGE);
+    }
+
+    public void farewell() {
+        output.println(FAREWELL_MESSAGE);
     }
 
     private void displayPrompt() {
