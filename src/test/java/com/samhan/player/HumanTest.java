@@ -26,7 +26,7 @@ public class HumanTest {
 
         humanPlayer.nextMove(new Board());
 
-        assertThat(input.getMoveTimesCalled, is(1));
+        assertThat(input.getMoveTimesCalled(), is(1));
     }
 
 }

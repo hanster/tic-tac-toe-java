@@ -5,7 +5,7 @@ import com.samhan.Marker;
 import com.samhan.ui.Display;
 
 public class DisplaySpy implements Display {
-    public int renderTimesCalled;
+    private int renderTimesCalled;
 
     public DisplaySpy() {
         renderTimesCalled = 0;
@@ -14,5 +14,9 @@ public class DisplaySpy implements Display {
     @Override
     public void render(Board board, Marker marker) {
         renderTimesCalled++;
+    }
+
+    public int getRenderTimesCalled() {
+        return renderTimesCalled;
     }
 }

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class PlayerStub implements Player {
     private final Marker marker;
     private final LinkedList<Integer> moves;
-    public int nextMoveTimesCalled;
+    private int nextMoveTimesCalled;
 
     public PlayerStub(Marker marker) {
         this.marker = marker;
@@ -32,5 +32,9 @@ public class PlayerStub implements Player {
     public int nextMove(Board board) {
         this.nextMoveTimesCalled++;
         return moves.remove();
+    }
+
+    public int getNextMoveTimesCalled() {
+        return nextMoveTimesCalled;
     }
 }

@@ -54,7 +54,7 @@ public class GameTest {
 
         game.render();
 
-        assertThat(display.renderTimesCalled, is(1));
+        assertThat(display.getRenderTimesCalled(), is(1));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class GameTest {
 
         game.playTurn();
 
-        assertThat(player1.nextMoveTimesCalled, is(1));
+        assertThat(player1.getNextMoveTimesCalled(), is(1));
     }
 
     @Test
@@ -75,8 +75,8 @@ public class GameTest {
         game.playTurn();
         game.playTurn();
 
-        assertThat(player1.nextMoveTimesCalled, is(1));
-        assertThat(player2.nextMoveTimesCalled, is(1));
+        assertThat(player1.getNextMoveTimesCalled(), is(1));
+        assertThat(player2.getNextMoveTimesCalled(), is(1));
     }
 
     @Test
@@ -88,9 +88,9 @@ public class GameTest {
 
         game.run();
 
-        assertThat(display.renderTimesCalled, is(10));
-        assertThat(player1.nextMoveTimesCalled, is(5));
-        assertThat(player2.nextMoveTimesCalled, is(4));
+        assertThat(display.getRenderTimesCalled(), is(10));
+        assertThat(player1.getNextMoveTimesCalled(), is(5));
+        assertThat(player2.getNextMoveTimesCalled(), is(4));
     }
 }
 
