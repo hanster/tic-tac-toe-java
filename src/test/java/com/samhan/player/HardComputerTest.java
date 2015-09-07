@@ -40,7 +40,7 @@ public class HardComputerTest {
 
         int computerMove = computer.nextMove(board);
 
-        assertThat(computerMove, is(8));
+        assertThat(computerMove, is(9));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class HardComputerTest {
         });
         HardComputer computer = new HardComputer(X);
 
-        assertThat(computer.nextMove(board), is(8));
+        assertThat(computer.nextMove(board), is(9));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class HardComputerTest {
         });
         HardComputer computer = new HardComputer(O);
 
-        assertThat(computer.nextMove(board), is(8));
+        assertThat(computer.nextMove(board), is(9));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class HardComputerTest {
 
         int computerMove = computer.nextMove(board);
 
-        assertThat(computerMove, is(15));
+        assertThat(computerMove, is(16));
     }
 
     @Test

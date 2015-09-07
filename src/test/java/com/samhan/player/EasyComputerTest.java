@@ -30,7 +30,7 @@ public class EasyComputerTest {
 
         int computerMove = computer.nextMove(board);
 
-        assertThat(computerMove, is(8));
+        assertThat(computerMove, is(9));
     }
 
     @Test

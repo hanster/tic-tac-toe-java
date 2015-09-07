@@ -21,7 +21,7 @@ public class BoardTest {
     public void notEmptyAfterPlacingAMarker() {
         Board board = new Board();
 
-        Board newBoard = board.placeAt(0, X);
+        Board newBoard = board.placeAt(1, X);
 
         assertThat(newBoard.isEmpty(), is(false));
     }
@@ -29,11 +29,11 @@ public class BoardTest {
     @Test
     public void positionIsNotAvailableAfterPlacingAMarker() {
         Board board = new Board();
-        assertThat(board.isAvailable(0), is(true));
+        assertThat(board.isAvailable(1), is(true));
 
-        Board newBoard = board.placeAt(0, X);
+        Board newBoard = board.placeAt(1, X);
 
-        assertThat(newBoard.isAvailable(0), is(false));
+        assertThat(newBoard.isAvailable(1), is(false));
     }
 
     @Test
@@ -42,14 +42,14 @@ public class BoardTest {
 
         Board newBoard = board.placeAt(5, X);
 
-        assertThat(newBoard.availableMoves(), CoreMatchers.<List>is(Arrays.asList(0, 1, 2, 3, 4, 6, 7, 8)));
+        assertThat(newBoard.availableMoves(), CoreMatchers.<List>is(Arrays.asList(1, 2, 3, 4, 6, 7, 8, 9)));
     }
 
     @Test
     public void anEmptyFourBoard() {
         Board board = new Board(4);
 
-        assertThat(board.availableMoves(), CoreMatchers.<List>is(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+        assertThat(board.availableMoves(), CoreMatchers.<List>is(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)));
     }
 
     @Test

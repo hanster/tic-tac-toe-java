@@ -39,14 +39,14 @@ public class ConsolePlayerInputOutputTest {
     public void getValidInput() {
         setUpQueuedConsoleInput(new String[]{"5"});
 
-        assertThat(consoleIO.getMove(new Board()), is(4));
+        assertThat(consoleIO.getMove(new Board()), is(5));
     }
 
     @Test
     public void promptAgainWhenNonNumberInput() {
         setUpQueuedConsoleInput(new String[]{"a", "5"});
 
-        assertThat(consoleIO.getMove(new Board()), is(4));
+        assertThat(consoleIO.getMove(new Board()), is(5));
     }
 
     @Test

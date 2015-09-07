@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class ConsoleDisplay implements Display {
     private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_HOME = "\u001b[H";
-    private static final int OFFSET = 1;
     private static final int CELL_WIDTH = 5;
     private static final String CURRENT_PLAYER = "Current Player: %s";
     private static final String CELL_SEPARATOR = "|";
@@ -91,9 +90,9 @@ public class ConsoleDisplay implements Display {
 
     private List<String> offsetPositions(Board board) {
         List<String> positions = new ArrayList<>();
-        for (int positionIndex = 0; positionIndex < board.size() * board.size(); positionIndex++) {
+        for (int positionIndex = 1; positionIndex <= board.size() * board.size(); positionIndex++) {
             if (board.isAvailable(positionIndex)) {
-                positions.add(Integer.toString(positionIndex + OFFSET));
+                positions.add(Integer.toString(positionIndex));
             } else {
                 positions.add(board.getMarkerAt(positionIndex).toString());
             }

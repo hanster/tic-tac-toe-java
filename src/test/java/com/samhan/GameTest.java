@@ -19,8 +19,8 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
-        player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
+        player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(1, 3, 4, 6, 8)));
+        player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(2, 5, 7, 9)));
         display = new DisplaySpy();
     }
 
@@ -81,8 +81,8 @@ public class GameTest {
 
     @Test
     public void testFullGamePlays() {
-        PlayerStub player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(0, 2, 3, 5, 7)));
-        PlayerStub player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(1, 4, 6, 8)));
+        PlayerStub player1 = new PlayerStub(X, new LinkedList<>(Arrays.asList(1, 3, 4, 6, 8)));
+        PlayerStub player2 = new PlayerStub(O, new LinkedList<>(Arrays.asList(2, 5, 7, 9)));
         GameParams params = new GameParams(player1, player2, new Board(), display);
         Game game = new Game(params);
 

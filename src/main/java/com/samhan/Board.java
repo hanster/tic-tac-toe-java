@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board {
+    public static final int OFFSET = 1;
     private Marker[] marks;
     private int boardSize;
 
@@ -38,22 +39,22 @@ public class Board {
     }
 
     public Marker getMarkerAt(int position) {
-        return marks[position];
+        return marks[position - OFFSET];
     }
 
     public Board placeAt(int position, Marker marker) {
         Marker[] newBoardMarks = marks.clone();
-        newBoardMarks[position] = marker;
+        newBoardMarks[position - OFFSET] = marker;
         return new Board(boardSize, newBoardMarks);
     }
 
     public boolean isAvailable(int position) {
-        return marks[position].equals(Marker.EMPTY);
+        return marks[position - OFFSET].equals(Marker.EMPTY);
     }
 
     public List<Integer> availableMoves() {
         List<Integer> freePositions = new ArrayList<>();
-        for (int index = 0; index < marks.length; index++) {
+        for (int index = 1; index <= marks.length; index++) {
             if (isAvailable(index)) {
                 freePositions.add(index);
             }
@@ -106,7 +107,7 @@ public class Board {
     private Line rowLine(int rowIndex) {
         List<Marker> rowMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            rowMarkers.add(getMarkerAt(rowIndex * boardSize + i));
+            rowMarkers.add(marks[rowIndex * boardSize + i]);
         }
         return new Line(rowMarkers);
     }
@@ -122,7 +123,7 @@ public class Board {
     private Line columnLine(int columnIndex) {
         List<Marker> columnMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            columnMarkers.add(getMarkerAt(boardSize * i + columnIndex));
+            columnMarkers.add(marks[boardSize * i + columnIndex]);
         }
         return new Line(columnMarkers);
     }
@@ -138,7 +139,7 @@ public class Board {
     private Line leftRightDiagonalLine() {
         List<Marker> leftRightMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            leftRightMarkers.add(getMarkerAt(i + i * boardSize));
+            leftRightMarkers.add(marks[i + i * boardSize]);
         }
         return new Line(leftRightMarkers);
     }
@@ -146,7 +147,7 @@ public class Board {
     private Line rightLeftDiagonalLine() {
         List<Marker> rightLeftMarkers = new ArrayList<>();
         for (int i = 1; i <= boardSize; i++) {
-            rightLeftMarkers.add(getMarkerAt(i * boardSize - i));
+            rightLeftMarkers.add(marks[i * boardSize - i]);
         }
         return new Line(rightLeftMarkers);
     }

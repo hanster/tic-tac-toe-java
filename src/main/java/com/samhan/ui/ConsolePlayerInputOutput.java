@@ -33,7 +33,7 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
     private int readSelection() {
         String selection = readInput();
         if (valid(selection)) {
-            return Integer.parseInt(selection) - 1;
+            return Integer.parseInt(selection);
         } else {
             displayInputError();
             return getMove(board);
@@ -59,7 +59,7 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
 
     private List<String> validSelections() {
         return board.availableMoves().stream()
-                .map(availableMove -> String.valueOf(availableMove + 1))
+                .map(availableMove -> String.valueOf(availableMove))
                 .collect(Collectors.toList());
     }
 }
