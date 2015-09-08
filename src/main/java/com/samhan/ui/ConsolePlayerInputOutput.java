@@ -10,11 +10,11 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
     private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
     private static final String ENTER_MOVE = "Enter move: ";
     private final PrintStream output;
-    private final BufferedReader input;
+    private final UserInput userInput;
     private Board board;
 
-    public ConsolePlayerInputOutput(InputStream inputStream, PrintStream output) {
-        this.input = new BufferedReader(new InputStreamReader(inputStream));
+    public ConsolePlayerInputOutput(UserInput userInput, PrintStream output) {
+        this.userInput = userInput;
         this.output = output;
     }
 
@@ -31,7 +31,7 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
     }
 
     private int readSelection() {
-        String selection = readInput();
+        String selection = userInput.readInput();
         if (valid(selection)) {
             return Integer.parseInt(selection);
         } else {
@@ -42,14 +42,6 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
 
     private void displayInputError() {
         output.println(String.format(INVALID_ENTRY, board.size() * board.size()));
-    }
-
-    private String readInput() {
-        try {
-            return input.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private boolean valid(String selection) {

@@ -22,7 +22,8 @@ public class ConsolePlayAgainInputTest {
         }
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
-        console = new ConsolePlayAgainInput(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
+        UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
+        console = new ConsolePlayAgainInput(userInput, printStream);
     }
 
     @Test

@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class ConsoleOptionMenu implements OptionMenu {
     private static final String INVALID_SELECTION = "Invalid Selection.";
-    private final BufferedReader input;
     private final PrintStream output;
     private String promptMessage;
     private Map<String, String> options;
+    private final UserInput userInput;
 
-    public ConsoleOptionMenu(InputStream inputStream, PrintStream output) {
-        this.input = new BufferedReader(new InputStreamReader(inputStream));
+    public ConsoleOptionMenu(UserInput userInput, PrintStream output) {
+        this.userInput = userInput;
         this.output = output;
     }
 
@@ -30,20 +30,12 @@ public class ConsoleOptionMenu implements OptionMenu {
     }
 
     private String readSelection() {
-        String selection = readInput();
+        String selection = userInput.readInput();
         if (valid(selection)) {
             return selection;
         } else {
             displayError(INVALID_SELECTION);
             return getSelection(promptMessage, options);
-        }
-    }
-
-    private String readInput() {
-        try {
-            return input.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

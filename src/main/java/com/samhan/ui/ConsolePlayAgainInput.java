@@ -11,10 +11,10 @@ public class ConsolePlayAgainInput {
     private static final String PLAY_AGAIN = "Do you want to play again? ";
     private static final String INVALID_ENTRY = "Invalid Entry. [Y]es or [N]o";
     private final PrintStream output;
-    private final BufferedReader input;
+    private final UserInput userInput;
 
-    public ConsolePlayAgainInput(InputStream inputStream, PrintStream output) {
-        this.input = new BufferedReader(new InputStreamReader(inputStream));
+    public ConsolePlayAgainInput(UserInput userInput, PrintStream output) {
+        this.userInput = userInput;
         this.output = output;
     }
 
@@ -37,7 +37,7 @@ public class ConsolePlayAgainInput {
     }
 
     private boolean readSelection() {
-        String selection = readInput();
+        String selection = userInput.readInput();
         if (valid(selection)) {
             return isYes(selection);
         } else {
@@ -48,14 +48,6 @@ public class ConsolePlayAgainInput {
 
     private void displayInputError() {
         output.println(INVALID_ENTRY);
-    }
-
-    private String readInput() {
-        try {
-            return input.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private boolean valid(String selection) {

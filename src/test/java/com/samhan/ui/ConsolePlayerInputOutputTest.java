@@ -23,7 +23,8 @@ public class ConsolePlayerInputOutputTest {
         }
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
-        consoleIO = new ConsolePlayerInputOutput(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
+        UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
+        consoleIO = new ConsolePlayerInputOutput(userInput, printStream);
     }
 
     @Test

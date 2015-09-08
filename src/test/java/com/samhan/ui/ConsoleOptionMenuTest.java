@@ -26,7 +26,8 @@ public class ConsoleOptionMenuTest {
         }
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
-        console = new ConsoleOptionMenu(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
+        UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
+        console = new ConsoleOptionMenu(userInput, printStream);
         prompt = "Enter an option:";
         options = new LinkedHashMap<>();
         options.put("1", "the first option");

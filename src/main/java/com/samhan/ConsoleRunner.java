@@ -15,10 +15,11 @@ public class ConsoleRunner {
     }
 
     public void run() {
-        ConsolePlayerInputOutput console = new ConsolePlayerInputOutput(input, output);
-        ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(input, output);
+        UserInput userInput = new UserInput(input);
+        ConsolePlayerInputOutput console = new ConsolePlayerInputOutput(userInput, output);
+        ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(userInput, output);
         ConsoleDisplay display = new ConsoleDisplay(output);
-        ConsolePlayAgainInput asker = new ConsolePlayAgainInput(input, output);
+        ConsolePlayAgainInput asker = new ConsolePlayAgainInput(userInput, output);
 
         PlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
         BoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
