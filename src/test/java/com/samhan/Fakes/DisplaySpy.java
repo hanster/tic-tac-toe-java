@@ -26,6 +26,16 @@ public class DisplaySpy implements Display {
 
     }
 
+    @Override
+    public void enterMovePrompt() {
+
+    }
+
+    @Override
+    public void invalidMoveMessage(Board board) {
+
+    }
+
     public int getRenderTimesCalled() {
         return renderTimesCalled;
     }

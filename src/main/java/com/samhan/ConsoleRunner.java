@@ -16,9 +16,9 @@ public class ConsoleRunner {
 
     public void run() {
         UserInput userInput = new UserInput(input);
-        ConsolePlayerInput console = new ConsolePlayerInput(userInput, output);
         ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(userInput, output);
         ConsoleDisplay display = new ConsoleDisplay(output);
+        ConsolePlayerInput console = new ConsolePlayerInput(userInput, display);
 
         GameSetup gameSetup = new GameSetup(display, console, optionMenu);
 

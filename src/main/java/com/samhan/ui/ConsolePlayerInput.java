@@ -2,18 +2,15 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 
-import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConsolePlayerInput implements PlayerInput {
-    private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
-    private static final String ENTER_MOVE = "Enter move: ";
-    private final PrintStream output;
+    private final Display output;
     private final UserInput userInput;
     private Board board;
 
-    public ConsolePlayerInput(UserInput userInput, PrintStream output) {
+    public ConsolePlayerInput(UserInput userInput, Display output) {
         this.userInput = userInput;
         this.output = output;
     }
@@ -27,7 +24,7 @@ public class ConsolePlayerInput implements PlayerInput {
     }
 
     private void displayPrompt() {
-        output.print(ENTER_MOVE);
+        output.enterMovePrompt();
     }
 
     private int readSelection() {
@@ -41,7 +38,7 @@ public class ConsolePlayerInput implements PlayerInput {
     }
 
     private void displayInputError() {
-        output.println(String.format(INVALID_ENTRY, board.size() * board.size()));
+        output.invalidMoveMessage(board);
     }
 
     private boolean valid(String selection) {

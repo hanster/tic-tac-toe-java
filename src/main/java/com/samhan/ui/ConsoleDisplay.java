@@ -16,6 +16,8 @@ public class ConsoleDisplay implements Display {
     private static final String GAME_OVER_RESULT = "Game Over! Result: %s";
     private static final String DRAW = "Draw";
     private static final String WINS = " wins";
+    private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
+    private static final String ENTER_MOVE = "Enter move: ";
     private final PrintStream output;
 
     public ConsoleDisplay(PrintStream output) {
@@ -38,6 +40,16 @@ public class ConsoleDisplay implements Display {
     @Override
     public void farewell() {
         output.println(FAREWELL_MESSAGE);
+    }
+
+    @Override
+    public void enterMovePrompt() {
+        output.print(ENTER_MOVE);
+    }
+
+    @Override
+    public void invalidMoveMessage(Board board) {
+        output.println(String.format(INVALID_ENTRY, board.size() * board.size()));
     }
 
     private void renderStatus(Board board, Marker marker) {
