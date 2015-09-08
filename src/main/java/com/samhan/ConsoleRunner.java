@@ -21,9 +21,7 @@ public class ConsoleRunner {
         ConsoleDisplay display = new ConsoleDisplay(output);
         ConsolePlayAgainInput asker = new ConsolePlayAgainInput(userInput, output);
 
-        PlayerSelection playerSelector = new ConsolePlayerSelection(optionMenu);
-        BoardSelection boardSelector = new ConsoleBoardSelection(optionMenu);
-        GameSetup gameSetup = new GameSetup(display, console, playerSelector, boardSelector);
+        GameSetup gameSetup = new GameSetup(display, console, optionMenu);
 
         do {
             asker.greet();

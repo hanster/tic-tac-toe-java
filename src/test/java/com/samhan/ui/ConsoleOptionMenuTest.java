@@ -1,5 +1,7 @@
 package com.samhan.ui;
 
+import com.samhan.BoardType;
+import com.samhan.PlayerType;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -78,5 +80,33 @@ public class ConsoleOptionMenuTest {
         console.getSelection(prompt, options);
 
         assertThat(output.toString(), containsString("Invalid Selection"));
+    }
+
+    @Test
+    public void selectAThreeBoardType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", BoardType.THREE.getInput()});
+
+        BoardType boardType = console.getBoardSelection();
+
+        assertThat(boardType, is(BoardType.THREE));
+    }
+
+
+    @Test
+    public void selectAtFourBoardType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", BoardType.FOUR.getInput()});
+
+        BoardType boardType = console.getBoardSelection();
+
+        assertThat(boardType, is(BoardType.FOUR));
+    }
+
+    @Test
+    public void selectAHumanPlayerType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", PlayerType.HUMAN.getInput()});
+
+        PlayerType playerType = console.getPlayerSelection("1");
+
+        assertThat(playerType, is(PlayerType.HUMAN));
     }
 }

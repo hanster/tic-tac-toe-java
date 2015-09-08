@@ -1,5 +1,8 @@
 package com.samhan.ui;
 
+import com.samhan.BoardType;
+import com.samhan.PlayerType;
+
 import java.io.*;
 import java.util.Map;
 
@@ -24,6 +27,24 @@ public class ConsoleOptionMenu implements OptionMenu {
         displayOptions();
         return readSelection();
     }
+
+    @Override
+    public BoardType getBoardSelection() {
+        String boardSelection = getSelection("Enter Board size selection", BoardType.options());
+        return BoardType.getType(boardSelection);
+    }
+
+    @Override
+    public PlayerType getPlayerSelection(String playerNumber) {
+        String playerSelection = getSelection(getPrompt(playerNumber), PlayerType.options());
+        return PlayerType.getType(playerSelection);
+    }
+
+
+    private String getPrompt(String playerNumber) {
+        return String.format("Enter a Player%s selection", playerNumber);
+    }
+
 
     private void displayPrompt() {
         output.println(promptMessage);
