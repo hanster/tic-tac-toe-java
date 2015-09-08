@@ -7,7 +7,7 @@ import static java.util.stream.IntStream.range;
 
 public class Board {
     public static final int OFFSET = 1;
-    private final Marker[] marks;
+    private final List<Optional<Marker>> marks;
     private final int boardSize;
 
     public Board() {
@@ -16,11 +16,10 @@ public class Board {
 
     public Board(int size) {
         this.boardSize = size;
-        this.marks = new Marker[size * size];
-        Arrays.fill(marks, Marker.EMPTY);
+        this.marks = new LinkedList<>(Collections.nCopies(size * size, Optional.<Marker>empty()));
     }
 
-    public Board(int size, Marker[] marks) {
+    public Board(int size, List<Optional<Marker>>marks) {
         this.boardSize = size;
         this.marks = marks;
     }
@@ -30,27 +29,25 @@ public class Board {
     }
 
     public boolean isEmpty() {
-        List<Marker> myMarks = new LinkedList<>(Arrays.asList(marks));
-
-        return myMarks.stream().allMatch(marker -> marker.equals(Marker.EMPTY));
+        return marks.stream().allMatch(marker -> !marker.isPresent());
     }
 
-    public Marker getMarkerAt(int position) {
-        return marks[position - OFFSET];
+    public Optional<Marker> getMarkerAt(int position) {
+        return marks.get(position - OFFSET);
     }
 
     public Board placeAt(int position, Marker marker) {
-        Marker[] newBoardMarks = marks.clone();
-        newBoardMarks[position - OFFSET] = marker;
+        List<Optional<Marker>> newBoardMarks = new LinkedList<>(marks);
+        newBoardMarks.set(position - OFFSET, Optional.of(marker));
         return new Board(boardSize, newBoardMarks);
     }
 
     public boolean isAvailable(int position) {
-        return marks[position - OFFSET].equals(Marker.EMPTY);
+        return !marks.get(position - OFFSET).isPresent();
     }
 
     public List<Integer> availableMoves() {
-        return range(1, marks.length + 1)
+        return range(1, marks.size() + 1)
                 .filter(this::isAvailable)
                 .boxed()
                 .collect(Collectors.toList());
@@ -65,7 +62,7 @@ public class Board {
     }
 
     public Optional<Marker> getWinner() {
-        return getWinningLine().map(Line::firstMark);
+        return getWinningLine().map(Line::firstMark).orElse(Optional.empty());
     }
 
     private Optional<Line> getWinningLine() {
@@ -76,7 +73,7 @@ public class Board {
     }
 
     public int movesMade() {
-        return marks.length - availableMoves().size();
+        return marks.size() - availableMoves().size();
     }
 
     private boolean hasNoMoreMoves() {
@@ -98,9 +95,7 @@ public class Board {
     }
 
     private Line rowLine(int rowIndex) {
-        List<Marker> myMarks = new LinkedList<>(Arrays.asList(marks));
-
-        return new Line(myMarks.subList(rowIndex * boardSize, rowIndex * boardSize + boardSize));
+        return new Line(marks.subList(rowIndex * boardSize, rowIndex * boardSize + boardSize));
     }
 
     private List<Line> allColumnLines() {
@@ -110,9 +105,9 @@ public class Board {
     }
 
     private Line columnLine(int columnIndex) {
-        List<Marker> columnMarkers = new ArrayList<>();
+        List<Optional<Marker>> columnMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            columnMarkers.add(marks[boardSize * i + columnIndex]);
+            columnMarkers.add(marks.get(boardSize * i + columnIndex));
         }
         return new Line(columnMarkers);
     }
@@ -126,25 +121,25 @@ public class Board {
     }
 
     private Line leftRightDiagonalLine() {
-        List<Marker> leftRightMarkers = new ArrayList<>();
+        List<Optional<Marker>> leftRightMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            leftRightMarkers.add(marks[i + i * boardSize]);
+            leftRightMarkers.add(marks.get(i + i * boardSize));
         }
         return new Line(leftRightMarkers);
     }
 
     private Line rightLeftDiagonalLine() {
-        List<Marker> rightLeftMarkers = new ArrayList<>();
+        List<Optional<Marker>> rightLeftMarkers = new ArrayList<>();
         for (int i = 1; i <= boardSize; i++) {
-            rightLeftMarkers.add(marks[i * boardSize - i]);
+            rightLeftMarkers.add(marks.get(i * boardSize - i));
         }
         return new Line(rightLeftMarkers);
     }
 
     private class Line {
-        private List<Marker> marks;
+        private List<Optional<Marker>> marks;
 
-        public Line(List<Marker> marks) {
+        public Line(List<Optional<Marker>> marks) {
             this.marks = marks;
         }
 
@@ -152,16 +147,16 @@ public class Board {
             return firstMarkNotEmpty() && allTheSame();
         }
 
-        public Marker firstMark() {
+        public Optional<Marker> firstMark() {
             return marks.get(0);
         }
 
         private boolean firstMarkNotEmpty() {
-            return marks.get(0) != Marker.EMPTY;
+            return marks.get(0).isPresent();
         }
 
         private boolean allTheSame() {
-            return marks.stream().allMatch(mark -> mark == marks.get(0));
+            return marks.stream().allMatch(mark -> mark.equals(marks.get(0)));
         }
     }
 }

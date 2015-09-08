@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.samhan.Marker.*;
+import static com.samhan.BoardCreationHelper.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
@@ -17,20 +17,20 @@ public class EasyComputerTest {
 
     @Before
     public void setUp() {
-        computer = new EasyComputer(O);
+        computer = new EasyComputer(Marker.O);
     }
     @Test
     public void hasAMarker() {
-        assertThat(computer.getMarker(), is(O));
+        assertThat(computer.getMarker(), is(Marker.O));
     }
 
     @Test
     public void choosesOnlyAvailableMove() {
-        Board board = new Board(3, new Marker[]{
+        Board board = createBoard(3,
                 X, O, X,
                 X, O, X,
                 O, X, EMPTY
-        });
+        );
 
         int computerMove = computer.nextMove(board);
 

@@ -1,14 +1,13 @@
 package com.samhan.ui;
 
 import com.samhan.Board;
-import com.samhan.Marker;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static com.samhan.Marker.*;
+import static com.samhan.BoardCreationHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -70,11 +69,11 @@ public class ConsolePlayerInputOutputTest {
     @Test
     public void displayMoveAlreadyTaken() {
         setUpQueuedConsoleInput(new String[]{"5", "6"});
-        Board board = new Board(3, new Marker[]{
+        Board board = createBoard(3,
                 EMPTY, EMPTY, EMPTY,
                 EMPTY, O,     EMPTY,
-                EMPTY, EMPTY, EMPTY,
-        });
+                EMPTY, EMPTY, EMPTY
+        );
 
         consoleIO.getMove(board);
 
@@ -84,11 +83,11 @@ public class ConsolePlayerInputOutputTest {
     @Test
     public void displayInvalidEntryWhenMoveOutOfRange() {
         setUpQueuedConsoleInput(new String[]{"0", "6"});
-        Board board = new Board(3, new Marker[]{
+        Board board = createBoard(3,
                 EMPTY, EMPTY, EMPTY,
                 EMPTY, O,     EMPTY,
-                EMPTY, EMPTY, EMPTY,
-        });
+                EMPTY, EMPTY, EMPTY
+        );
 
         consoleIO.getMove(board);
 

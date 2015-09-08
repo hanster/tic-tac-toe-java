@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.String.*;
+
 public class ConsoleDisplay implements Display {
     private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_HOME = "\u001b[H";
@@ -44,7 +46,7 @@ public class ConsoleDisplay implements Display {
     }
 
     private void renderOngoingStatus(Marker marker) {
-        output.println(String.format(CURRENT_PLAYER, marker.toString()));
+        output.println(format(CURRENT_PLAYER, marker.toString()));
     }
 
     private void renderEndStatus(Board board) {
@@ -52,12 +54,13 @@ public class ConsoleDisplay implements Display {
     }
 
     private String endStatusMessage(Board board) {
-        return String.format(
-                GAME_OVER_RESULT,
-                board.getWinner()
-                        .map(winner -> winner.toString() + WINS)
-                        .orElse(DRAW)
-        );
+        return format(GAME_OVER_RESULT, getResult(board));
+    }
+
+    private String getResult(Board board) {
+        return board.getWinner()
+                .map(winner -> winner.toString() + WINS)
+                .orElse(DRAW);
     }
 
     private void clearDisplay() {
@@ -98,7 +101,7 @@ public class ConsoleDisplay implements Display {
             if (board.isAvailable(positionIndex)) {
                 positions.add(Integer.toString(positionIndex));
             } else {
-                positions.add(board.getMarkerAt(positionIndex).toString());
+                positions.add(board.getMarkerAt(positionIndex).get().toString());
             }
         }
         return positions;
