@@ -12,9 +12,9 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ConsolePlayerInputOutputTest {
+public class ConsolePlayerInputTest {
     private ByteArrayOutputStream output;
-    private ConsolePlayerInputOutput consoleIO;
+    private ConsolePlayerInput consoleIO;
 
     private void setUpQueuedConsoleInput(String[] listOfInputs) {
         String totalInputs = "";
@@ -24,7 +24,7 @@ public class ConsolePlayerInputOutputTest {
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
-        consoleIO = new ConsolePlayerInputOutput(userInput, printStream);
+        consoleIO = new ConsolePlayerInput(userInput, printStream);
     }
 
     @Test

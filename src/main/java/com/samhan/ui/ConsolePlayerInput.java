@@ -6,14 +6,14 @@ import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConsolePlayerInputOutput implements PlayerInputOutput {
+public class ConsolePlayerInput implements PlayerInputOutput {
     private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
     private static final String ENTER_MOVE = "Enter move: ";
     private final PrintStream output;
     private final UserInput userInput;
     private Board board;
 
-    public ConsolePlayerInputOutput(UserInput userInput, PrintStream output) {
+    public ConsolePlayerInput(UserInput userInput, PrintStream output) {
         this.userInput = userInput;
         this.output = output;
     }
