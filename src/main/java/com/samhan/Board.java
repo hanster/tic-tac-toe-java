@@ -161,13 +161,7 @@ public class Board {
         }
 
         private boolean allTheSame() {
-            Marker firstMark = marks.get(0);
-            for (Marker mark : marks) {
-                if (mark != firstMark) {
-                    return false;
-                }
-            }
-            return true;
+            return marks.stream().allMatch(mark -> mark == marks.get(0));
         }
     }
 }
