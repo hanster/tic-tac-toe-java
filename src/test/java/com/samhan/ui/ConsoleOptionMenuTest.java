@@ -2,6 +2,7 @@ package com.samhan.ui;
 
 import com.samhan.BoardType;
 import com.samhan.PlayerType;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -108,5 +109,50 @@ public class ConsoleOptionMenuTest {
         PlayerType playerType = console.getPlayerSelection("1");
 
         assertThat(playerType, is(PlayerType.HUMAN));
+    }
+
+    @Test
+    public void displaysQuestion() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
+
+        console.doPlayAgain();
+
+        assertThat(output.toString(), containsString("Do you want to play again?"));
+    }
+
+    @Test
+    public void yReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(true));
+    }
+
+    @Test
+    public void yesReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Yes"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(true));
+    }
+
+    @Test
+    public void nReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"N"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+    }
+
+    @Test
+    public void noReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"No"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+    }
+
+    @Test
+    public void promptsUntilValid() {
+        setUpQueuedConsoleInput(new String[]{"Nope", "O", "n"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+        assertThat(output.toString(), containsString("Invalid Entry. [Y]es or [N]o"));
     }
 }

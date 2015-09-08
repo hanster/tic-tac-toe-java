@@ -19,7 +19,6 @@ public class ConsoleRunner {
         ConsolePlayerInput console = new ConsolePlayerInput(userInput, output);
         ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(userInput, output);
         ConsoleDisplay display = new ConsoleDisplay(output);
-        ConsolePlayAgainInput asker = new ConsolePlayAgainInput(userInput, output);
 
         GameSetup gameSetup = new GameSetup(display, console, optionMenu);
 
@@ -29,7 +28,7 @@ public class ConsoleRunner {
             Game game = new Game(gameParams);
 
             game.run();
-        } while (asker.doPlayAgain());
+        } while (optionMenu.doPlayAgain());
         display.farewell();
     }
 }

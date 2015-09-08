@@ -31,6 +31,11 @@ public class OptionMenuStub implements OptionMenu {
         return playerTypes.remove();
     }
 
+    @Override
+    public boolean doPlayAgain() {
+        return false;
+    }
+
     public void setBoardSelection(BoardType boardType) {
         this.boardType = boardType;
     }

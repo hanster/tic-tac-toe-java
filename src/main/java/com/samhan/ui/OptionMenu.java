@@ -11,4 +11,6 @@ public interface OptionMenu {
     BoardType getBoardSelection();
 
     PlayerType getPlayerSelection(String player);
+
+    boolean doPlayAgain();
 }
