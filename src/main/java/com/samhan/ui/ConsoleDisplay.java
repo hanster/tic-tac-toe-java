@@ -2,14 +2,14 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 import com.samhan.Marker;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
+import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class ConsoleDisplay implements Display {
     private static final String ANSI_CLS = "\u001b[2J";
@@ -69,54 +69,47 @@ public class ConsoleDisplay implements Display {
 
     private void renderBoard(Board board) {
         displayBlankLine();
-        List<String> positions = offsetPositions(board);
-        List<String> centeredPositions = centeredPositions(positions);
-        List<String> boardRows = splitIntoRows(board, centeredPositions);
-
-        output.println(StringUtils.join(boardRows, rowSeparator(board.size())));
+        displayBoard(board);
         displayBlankLine();
     }
 
+    private void displayBoard(Board board) {
+        List<String> cells = formatCells(board);
+        List<String> boardRows = splitIntoRows(board, cells);
+        String formattedBoard = join(boardRows, rowSeparator(board.size()));
+        output.println(formattedBoard);
+    }
+
     private List<String> splitIntoRows(Board board, List<String> centeredPositions) {
-        List<String> boardRows = new ArrayList<>();
-
-        for (int rowIndex = 0; rowIndex < board.size(); rowIndex++) {
-            List<String> rowPositions = groupedRowPositions(board.size(), centeredPositions, rowIndex);
-            boardRows.add(StringUtils.join(rowPositions, CELL_SEPARATOR));
-        }
-        return boardRows;
-    }
-
-    private List<String> groupedRowPositions(int boardSize, List<String> centeredPositions, int rowIndex) {
-        List<String> rowPositions = new ArrayList<>();
-        for (int j = 0; j < boardSize; j++) {
-            rowPositions.add(centeredPositions.get(rowIndex * boardSize + j));
-        }
-        return rowPositions;
-    }
-
-    private List<String> offsetPositions(Board board) {
-        List<String> positions = new ArrayList<>();
-        for (int positionIndex = 1; positionIndex <= board.size() * board.size(); positionIndex++) {
-            if (board.isAvailable(positionIndex)) {
-                positions.add(Integer.toString(positionIndex));
-            } else {
-                positions.add(board.getMarkerAt(positionIndex).get().toString());
-            }
-        }
-        return positions;
-    }
-
-    private List<String> centeredPositions(List<String> positions) {
-        return positions.stream()
-                .map(boardMarker -> StringUtils.center(boardMarker, CELL_WIDTH))
+        return range(0, board.size())
+                .mapToObj(i -> rowLine(centeredPositions, board.size(), i))
+                .map(rowLine -> join(rowLine, CELL_SEPARATOR))
                 .collect(Collectors.toList());
+    }
+
+    private List<String> rowLine(List<String> allCells, int boardSize, int rowIndex) {
+        return allCells.subList(rowIndex * boardSize, rowIndex * boardSize + boardSize);
+    }
+
+    private List<String> formatCells(Board board) {
+        return range(1, board.size() * board.size() + 1)
+                .mapToObj(i -> cellRepresentation(board, i))
+                .map(this::centerCell)
+                .collect(Collectors.toList());
+    }
+
+    private String cellRepresentation(Board board, int cellNumber) {
+        return board.getMarkerAt(cellNumber).map(Enum::toString).orElse("" + cellNumber);
+    }
+
+    private String centerCell(String cell) {
+        return center(cell, CELL_WIDTH);
     }
 
     private String rowSeparator(int boardSize) {
         String rowSeparator = "\n";
-        String singleCellRowSeparator = StringUtils.repeat(ROW_CELL_SEPARATOR, CELL_WIDTH);
-        rowSeparator += StringUtils.repeat(singleCellRowSeparator, CROSS_SEPARATOR, boardSize);
+        String singleCellRowSeparator = repeat(ROW_CELL_SEPARATOR, CELL_WIDTH);
+        rowSeparator += repeat(singleCellRowSeparator, CROSS_SEPARATOR, boardSize);
         return rowSeparator + "\n";
     }
 
