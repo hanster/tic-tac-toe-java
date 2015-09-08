@@ -1,6 +1,8 @@
 package com.samhan.ui;
 
 import com.samhan.Board;
+import com.samhan.ui.console.ConsoleDisplay;
+import com.samhan.ui.console.ConsolePlayerInput;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

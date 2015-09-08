@@ -2,6 +2,7 @@ package com.samhan.ui;
 
 import com.samhan.BoardType;
 import com.samhan.PlayerType;
+import com.samhan.ui.console.ConsoleOptionMenu;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 

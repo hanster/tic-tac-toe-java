@@ -1,7 +1,9 @@
-package com.samhan.ui;
+package com.samhan.ui.console;
 
 import com.samhan.Board;
 import com.samhan.Marker;
+import com.samhan.ui.BoardPresenter;
+import com.samhan.ui.Display;
 
 import java.io.PrintStream;
 

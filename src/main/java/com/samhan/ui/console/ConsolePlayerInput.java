@@ -1,6 +1,9 @@
-package com.samhan.ui;
+package com.samhan.ui.console;
 
 import com.samhan.Board;
+import com.samhan.ui.Display;
+import com.samhan.ui.PlayerInput;
+import com.samhan.ui.UserInput;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,6 +1,9 @@
 package com.samhan;
 
 import com.samhan.ui.*;
+import com.samhan.ui.console.ConsoleDisplay;
+import com.samhan.ui.console.ConsoleOptionMenu;
+import com.samhan.ui.console.ConsolePlayerInput;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -18,9 +21,9 @@ public class ConsoleRunner {
         UserInput userInput = new UserInput(input);
         ConsoleOptionMenu optionMenu = new ConsoleOptionMenu(userInput, output);
         ConsoleDisplay display = new ConsoleDisplay(output);
-        ConsolePlayerInput console = new ConsolePlayerInput(userInput, display);
+        ConsolePlayerInput playerInput = new ConsolePlayerInput(userInput, display);
 
-        GameSetup gameSetup = new GameSetup(display, console, optionMenu);
+        GameSetup gameSetup = new GameSetup(display, playerInput, optionMenu);
 
         do {
             display.greet();

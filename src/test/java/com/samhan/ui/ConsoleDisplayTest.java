@@ -2,6 +2,7 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 import com.samhan.Marker;
+import com.samhan.ui.console.ConsoleDisplay;
 import org.junit.Before;
 import org.junit.Test;
 

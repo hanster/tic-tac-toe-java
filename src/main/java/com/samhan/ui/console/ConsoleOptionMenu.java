@@ -1,7 +1,9 @@
-package com.samhan.ui;
+package com.samhan.ui.console;
 
 import com.samhan.BoardType;
 import com.samhan.PlayerType;
+import com.samhan.ui.OptionMenu;
+import com.samhan.ui.UserInput;
 
 import java.io.*;
 import java.util.Arrays;
@@ -12,8 +14,6 @@ public class ConsoleOptionMenu implements OptionMenu {
     private static final String PLAY_AGAIN = "Do you want to play again? ";
     private static final String INVALID_ENTRY = "Invalid Entry. [Y]es or [N]o";
     private final PrintStream output;
-    private String promptMessage;
-    private Map<String, String> options;
     private final UserInput userInput;
 
     public ConsoleOptionMenu(UserInput userInput, PrintStream output) {
@@ -23,12 +23,9 @@ public class ConsoleOptionMenu implements OptionMenu {
 
     @Override
     public String getSelection(String prompt, Map<String, String> options) {
-        this.promptMessage = prompt;
-        this.options = options;
-
-        displayPrompt();
-        displayOptions();
-        return readSelection();
+        displayPrompt(prompt);
+        displayOptions(options);
+        return readSelection(prompt, options);
     }
 
     @Override
@@ -45,7 +42,7 @@ public class ConsoleOptionMenu implements OptionMenu {
 
     @Override
     public boolean doPlayAgain() {
-        output.print(PLAY_AGAIN);;
+        output.print(PLAY_AGAIN);
         return readSelectionYesNo();
     }
 
@@ -55,17 +52,17 @@ public class ConsoleOptionMenu implements OptionMenu {
     }
 
 
-    private void displayPrompt() {
-        output.println(promptMessage);
+    private void displayPrompt(String prompt) {
+        output.println(prompt);
     }
 
-    private String readSelection() {
+    private String readSelection(String prompt, Map<String, String> options) {
         String selection = userInput.readInput();
-        if (valid(selection)) {
+        if (valid(selection, options)) {
             return selection;
         } else {
             displayError(INVALID_SELECTION);
-            return getSelection(promptMessage, options);
+            return getSelection(prompt, options);
         }
     }
 
@@ -95,11 +92,11 @@ public class ConsoleOptionMenu implements OptionMenu {
         output.println(errorMessage);
     }
 
-    private boolean valid(String selection) {
+    private boolean valid(String selection, Map<String, String> options) {
         return options.containsKey(selection);
     }
 
-    private void displayOptions() {
+    private void displayOptions(Map<String, String> options) {
         for (Map.Entry<String, String> option : options.entrySet()) {
             output.println(option.getKey() + " - " + option.getValue());
         }
