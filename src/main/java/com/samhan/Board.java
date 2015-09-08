@@ -1,8 +1,9 @@
 package com.samhan;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.IntStream.range;
 
 public class Board {
     public static final int OFFSET = 1;
@@ -29,12 +30,9 @@ public class Board {
     }
 
     public boolean isEmpty() {
-        for (Marker mark : marks) {
-            if (!mark.equals(Marker.EMPTY)) {
-                return false;
-            }
-        }
-        return true;
+        List<Marker> myMarks = new LinkedList<>(Arrays.asList(marks));
+
+        return myMarks.stream().allMatch(marker -> marker.equals(Marker.EMPTY));
     }
 
     public Marker getMarkerAt(int position) {
@@ -52,35 +50,29 @@ public class Board {
     }
 
     public List<Integer> availableMoves() {
-        List<Integer> freePositions = new ArrayList<>();
-        for (int index = 1; index <= marks.length; index++) {
-            if (isAvailable(index)) {
-                freePositions.add(index);
-            }
-        }
-
-        return freePositions;
-    }
-
-    public boolean hasWinner() {
-        return getWinner() != null;
+        return range(1, marks.length + 1)
+                .filter(this::isAvailable)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     public boolean isFinished() {
-        return hasNoMoreMoves() || hasWinner();
+        return hasNoMoreMoves() || getWinner().isPresent();
     }
 
     public boolean isDraw() {
-        return hasNoMoreMoves() || !hasWinner();
+        return hasNoMoreMoves() || !getWinner().isPresent();
     }
 
-    public Marker getWinner() {
-        for (Line line : allLines()) {
-            if (line.isWinner()) {
-                return line.firstMark();
-            }
-        }
-        return null;
+    public Optional<Marker> getWinner() {
+        return getWinningLine().map(Line::firstMark);
+    }
+
+    private Optional<Line> getWinningLine() {
+        return allLines()
+                .stream()
+                .filter(Line::isWinner)
+                .findFirst();
     }
 
     public int movesMade() {
@@ -100,27 +92,21 @@ public class Board {
     }
 
     private List<Line> allRowLines() {
-        List<Line> allRowLines = new ArrayList<>();
-        for (int row = 0; row < boardSize; row++) {
-            allRowLines.add(rowLine(row));
-        }
-        return allRowLines;
+        return range(0, boardSize)
+                .mapToObj(this::rowLine)
+                .collect(Collectors.toList());
     }
 
     private Line rowLine(int rowIndex) {
-        List<Marker> rowMarkers = new ArrayList<>();
-        for (int i = 0; i < boardSize; i++) {
-            rowMarkers.add(marks[rowIndex * boardSize + i]);
-        }
-        return new Line(rowMarkers);
+        List<Marker> myMarks = new LinkedList<>(Arrays.asList(marks));
+
+        return new Line(myMarks.subList(rowIndex * boardSize, rowIndex * boardSize + boardSize));
     }
 
     private List<Line> allColumnLines() {
-        List<Line> allColumnLines = new ArrayList<>();
-        for (int column = 0; column < boardSize; column++) {
-            allColumnLines.add(columnLine(column));
-        }
-        return allColumnLines;
+        return range(0, boardSize)
+                .mapToObj(this::columnLine)
+                .collect(Collectors.toList());
     }
 
     private Line columnLine(int columnIndex) {

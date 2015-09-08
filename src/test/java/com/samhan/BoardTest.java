@@ -56,7 +56,7 @@ public class BoardTest {
     public void startsWithNoWinner() {
         Board board = new Board();
 
-        assertThat(board.hasWinner(), is(false));
+        assertHasWinner(board, false);
     }
 
     @Test
@@ -76,8 +76,8 @@ public class BoardTest {
                 EMPTY, EMPTY, EMPTY
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
     @Test
@@ -88,8 +88,8 @@ public class BoardTest {
                 EMPTY, EMPTY, EMPTY
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
 
@@ -102,8 +102,8 @@ public class BoardTest {
                 X,     X,     X,     X
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
     @Test
@@ -114,8 +114,8 @@ public class BoardTest {
                 X, EMPTY, EMPTY
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
 
@@ -128,8 +128,8 @@ public class BoardTest {
                 EMPTY, EMPTY, EMPTY, X
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
     @Test
@@ -140,8 +140,8 @@ public class BoardTest {
                 EMPTY, EMPTY, X
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
 
@@ -154,8 +154,8 @@ public class BoardTest {
                 X,     EMPTY, EMPTY, EMPTY
         });
 
-        assertThat(board.hasWinner(), is(true));
-        assertThat(board.getWinner(), is(X));
+        assertHasWinner(board, true);
+        assertWinnerIsX(board);
     }
 
     @Test
@@ -177,7 +177,15 @@ public class BoardTest {
                 O, X, O
         });
 
-        assertThat(board.hasWinner(), is(false));
+        assertHasWinner(board, false);
         assertThat(board.isDraw(), is(true));
+    }
+
+    private void assertWinnerIsX(Board board) {
+        assertThat(board.getWinner().get(), is(X));
+    }
+
+    private void assertHasWinner(Board board, boolean is_winner) {
+        assertThat(board.getWinner().isPresent(), is(is_winner));
     }
 }

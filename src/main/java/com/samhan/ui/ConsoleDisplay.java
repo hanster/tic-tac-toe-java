@@ -48,12 +48,16 @@ public class ConsoleDisplay implements Display {
     }
 
     private void renderEndStatus(Board board) {
-        if (board.hasWinner()) {
-            Marker winner = board.getWinner();
-            output.println(String.format(GAME_OVER_RESULT, winner.toString() + WINS));
-        } else {
-            output.println(String.format(GAME_OVER_RESULT, DRAW));
-        }
+        output.println(endStatusMessage(board));
+    }
+
+    private String endStatusMessage(Board board) {
+        return String.format(
+                GAME_OVER_RESULT,
+                board.getWinner()
+                        .map(winner -> winner.toString() + WINS)
+                        .orElse(DRAW)
+        );
     }
 
     private void clearDisplay() {

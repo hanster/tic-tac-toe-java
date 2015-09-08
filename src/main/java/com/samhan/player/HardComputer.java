@@ -69,11 +69,7 @@ public class HardComputer implements Player {
     }
 
     private int nodeValue(Board board, Marker marker) {
-        if (board.hasWinner()) {
-            return scoreWinner(board.getWinner(), marker);
-        } else {
-            return NEUTRAL_SCORE;
-        }
+        return board.getWinner().map(mark -> scoreWinner(mark, marker)).orElse(NEUTRAL_SCORE);
     }
 
     private int scoreWinner(Marker winner, Marker marker) {
