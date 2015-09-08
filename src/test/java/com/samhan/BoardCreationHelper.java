@@ -8,6 +8,7 @@ public class BoardCreationHelper {
     public static final Optional<Marker> O = Optional.of(Marker.O);
     public static final Optional<Marker> X = Optional.of(Marker.X);
 
+        @SafeVarargs
         public static Board createBoard(int boardSize, Optional<Marker>...elements) {
             return new Board(boardSize, Arrays.asList(elements));
         }

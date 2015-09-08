@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.IntStream.range;
 
 public class Board {
-    public static final int OFFSET = 1;
+    private static final int OFFSET = 1;
     private final List<Optional<Marker>> marks;
     private final int boardSize;
 
@@ -137,7 +137,7 @@ public class Board {
     }
 
     private class Line {
-        private List<Optional<Marker>> marks;
+        private final List<Optional<Marker>> marks;
 
         public Line(List<Optional<Marker>> marks) {
             this.marks = marks;

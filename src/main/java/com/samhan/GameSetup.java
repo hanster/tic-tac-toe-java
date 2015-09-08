@@ -13,8 +13,8 @@ import static com.samhan.Marker.*;
 
 public class GameSetup {
 
-    public static final String PLAYER_ONE = "1";
-    public static final String PLAYER_TWO = "2";
+    private static final String PLAYER_ONE = "1";
+    private static final String PLAYER_TWO = "2";
     private final Display display;
     private final PlayerInputOutput playerInputOutput;
     private final PlayerSelection playerSelection;

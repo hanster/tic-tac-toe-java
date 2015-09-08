@@ -11,12 +11,6 @@ public class PlayerStub implements Player {
     private final LinkedList<Integer> moves;
     private int nextMoveTimesCalled;
 
-    public PlayerStub(Marker marker) {
-        this.marker = marker;
-        this.moves = new LinkedList<>();
-        this.nextMoveTimesCalled = 0;
-    }
-
     public PlayerStub(Marker marker, LinkedList<Integer> moves) {
         this.marker = marker;
         this.moves = moves;

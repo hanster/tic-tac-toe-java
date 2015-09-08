@@ -59,7 +59,7 @@ public class ConsolePlayerInputOutput implements PlayerInputOutput {
 
     private List<String> validSelections() {
         return board.availableMoves().stream()
-                .map(availableMove -> String.valueOf(availableMove))
+                .map(String::valueOf)
                 .collect(Collectors.toList());
     }
 }

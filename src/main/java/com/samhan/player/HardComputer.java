@@ -13,7 +13,7 @@ public class HardComputer implements Player {
     private static final int DEPTH_LIMIT = 7;
     private static final int NEUTRAL_SCORE = 0;
     private static final int WIN_SCORE = 100;
-    public static final int MOVE_LIMIT = 11;
+    private static final int MOVE_LIMIT = 11;
     private final Marker marker;
 
     public HardComputer(Marker marker) {

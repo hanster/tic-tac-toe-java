@@ -74,7 +74,7 @@ public class ConsoleOptionMenuTest {
     public void displayAnErrorMessageForInvalidInput() {
         setUpQueuedConsoleInput(new String[]{"asdf", "1"});
 
-        String selection = console.getSelection(prompt, options);
+        console.getSelection(prompt, options);
 
         assertThat(output.toString(), containsString("Invalid Selection"));
     }
