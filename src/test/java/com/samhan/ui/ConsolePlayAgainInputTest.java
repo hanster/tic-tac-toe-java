@@ -9,7 +9,6 @@ import java.io.PrintStream;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ConsolePlayAgainInputTest {
     private ByteArrayOutputStream output;
@@ -69,33 +68,5 @@ public class ConsolePlayAgainInputTest {
 
         assertThat(console.doPlayAgain(), is(false));
         assertThat(output.toString(), containsString("Invalid Entry. [Y]es or [N]o"));
-    }
-
-    @Test
-    public void clearsTheScreen() {
-        setUpQueuedConsoleInput(new String[]{"Y"});
-
-        console.greet();
-
-        assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
-    }
-
-    @Test
-    public void greetsWithAWelcomeMessage() {
-        setUpQueuedConsoleInput(new String[]{"Y"});
-
-        console.greet();
-
-        assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
-    }
-
-    @Test
-    public void farewellMessage() {
-        setUpQueuedConsoleInput(new String[]{"Y"});
-
-        console.farewell();
-
-        assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
-
     }
 }

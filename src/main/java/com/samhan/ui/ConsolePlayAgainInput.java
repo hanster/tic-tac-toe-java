@@ -23,15 +23,6 @@ public class ConsolePlayAgainInput {
         return readSelection();
     }
 
-    public void greet() {
-        output.print(ANSI_CLS + ANSI_HOME);
-        output.println(WELCOME_MESSAGE);
-    }
-
-    public void farewell() {
-        output.println(FAREWELL_MESSAGE);
-    }
-
     private void displayPrompt() {
         output.print(PLAY_AGAIN);
     }

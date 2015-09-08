@@ -16,6 +16,16 @@ public class DisplaySpy implements Display {
         renderTimesCalled++;
     }
 
+    @Override
+    public void greet() {
+
+    }
+
+    @Override
+    public void farewell() {
+
+    }
+
     public int getRenderTimesCalled() {
         return renderTimesCalled;
     }

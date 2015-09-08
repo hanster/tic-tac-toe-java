@@ -24,12 +24,12 @@ public class ConsoleRunner {
         GameSetup gameSetup = new GameSetup(display, console, optionMenu);
 
         do {
-            asker.greet();
+            display.greet();
             GameParams gameParams = gameSetup.buildGame();
             Game game = new Game(gameParams);
 
             game.run();
         } while (asker.doPlayAgain());
-        asker.farewell();
+        display.farewell();
     }
 }

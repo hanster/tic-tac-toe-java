@@ -10,6 +10,8 @@ import static java.lang.String.format;
 public class ConsoleDisplay implements Display {
     private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_HOME = "\u001b[H";
+    private static final String WELCOME_MESSAGE = "Welcome to TicTcToe\n\nTime to set up!\n";
+    private static final String FAREWELL_MESSAGE = "\nThanks for playing!\n\nBye!";
     private static final String CURRENT_PLAYER = "Current Player: %s";
     private static final String GAME_OVER_RESULT = "Game Over! Result: %s";
     private static final String DRAW = "Draw";
@@ -25,6 +27,17 @@ public class ConsoleDisplay implements Display {
         clearDisplay();
         renderBoard(board);
         renderStatus(board, marker);
+    }
+
+    @Override
+    public void greet() {
+        output.print(ANSI_CLS + ANSI_HOME);
+        output.println(WELCOME_MESSAGE);
+    }
+
+    @Override
+    public void farewell() {
+        output.println(FAREWELL_MESSAGE);
     }
 
     private void renderStatus(Board board, Marker marker) {

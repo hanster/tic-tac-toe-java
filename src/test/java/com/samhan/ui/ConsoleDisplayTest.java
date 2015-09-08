@@ -156,4 +156,26 @@ public class ConsoleDisplayTest {
         assertThat(output.toString(), containsString(emptyBoard));
 
     }
+
+    @Test
+    public void clearsTheScreenWhenGreeting() {
+        display.greet();
+
+        assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
+    }
+
+    @Test
+    public void greetsWithAWelcomeMessage() {
+        display.greet();
+
+        assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
+    }
+
+    @Test
+    public void farewellMessage() {
+        display.farewell();
+
+        assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
+
+    }
 }
