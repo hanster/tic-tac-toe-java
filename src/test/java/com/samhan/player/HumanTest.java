@@ -2,8 +2,8 @@ package com.samhan.player;
 
 
 import com.samhan.Board;
-import com.samhan.fakes.PlayerInputOutputSpy;
-import com.samhan.ui.PlayerInputOutput;
+import com.samhan.fakes.PlayerInputSpy;
+import com.samhan.ui.PlayerInput;
 import org.junit.Test;
 
 import static com.samhan.Marker.X;
@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class HumanTest {
     @Test
     public void hasAMarker() {
-        PlayerInputOutput input = new PlayerInputOutputSpy();
+        PlayerInput input = new PlayerInputSpy();
         Player humanPlayer = new Human(X, input);
 
         assertThat(humanPlayer.getMarker(), is(X));
@@ -21,7 +21,7 @@ public class HumanTest {
 
     @Test
     public void usesInputToGetTheMove() {
-        PlayerInputOutputSpy input = new PlayerInputOutputSpy();
+        PlayerInputSpy input = new PlayerInputSpy();
         Player humanPlayer = new Human(X, input);
 
         humanPlayer.nextMove(new Board());

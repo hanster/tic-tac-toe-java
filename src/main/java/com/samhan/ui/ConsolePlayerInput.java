@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConsolePlayerInput implements PlayerInputOutput {
+public class ConsolePlayerInput implements PlayerInput {
     private static final String INVALID_ENTRY = "Invalid Entry (1-%s)";
     private static final String ENTER_MOVE = "Enter move: ";
     private final PrintStream output;

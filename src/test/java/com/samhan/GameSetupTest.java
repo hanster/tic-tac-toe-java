@@ -2,12 +2,12 @@ package com.samhan;
 
 import com.samhan.fakes.DisplaySpy;
 import com.samhan.fakes.OptionMenuStub;
-import com.samhan.fakes.PlayerInputOutputSpy;
+import com.samhan.fakes.PlayerInputSpy;
 import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;
 import com.samhan.ui.Display;
-import com.samhan.ui.PlayerInputOutput;
+import com.samhan.ui.PlayerInput;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -27,12 +27,12 @@ public class GameSetupTest {
     @Test
     public void getParamsForAGame() {
         Display display = new DisplaySpy();
-        PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
+        PlayerInput playerInput = new PlayerInputSpy();
         OptionMenuStub optionMenu = new OptionMenuStub("");
         optionMenu.setBoardSelection(BoardType.THREE);
         optionMenu.setPlayersSelection(setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.EASY_COMPUTER));
 
-        GameSetup gameSetup = new GameSetup(display, playerInputOutput, optionMenu);
+        GameSetup gameSetup = new GameSetup(display, playerInput, optionMenu);
 
         GameParams params = gameSetup.buildGame();
 
@@ -44,12 +44,12 @@ public class GameSetupTest {
     @Test
     public void getParamsForHardComputerAndFourBoard() {
         Display display = new DisplaySpy();
-        PlayerInputOutput playerInputOutput = new PlayerInputOutputSpy();
+        PlayerInput playerInput = new PlayerInputSpy();
         OptionMenuStub optionMenu = new OptionMenuStub("");
         optionMenu.setBoardSelection(BoardType.FOUR);
         optionMenu.setPlayersSelection(setUpPlayerSelectionStub(PlayerType.HUMAN, PlayerType.HARD_COMPUTER));
 
-        GameSetup gameSetup = new GameSetup(display, playerInputOutput, optionMenu);
+        GameSetup gameSetup = new GameSetup(display, playerInput, optionMenu);
 
         GameParams params = gameSetup.buildGame();
 

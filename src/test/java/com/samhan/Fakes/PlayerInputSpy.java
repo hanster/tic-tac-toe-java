@@ -2,12 +2,12 @@ package com.samhan.fakes;
 
 
 import com.samhan.Board;
-import com.samhan.ui.PlayerInputOutput;
+import com.samhan.ui.PlayerInput;
 
-public class PlayerInputOutputSpy implements PlayerInputOutput {
+public class PlayerInputSpy implements PlayerInput {
     private int getMoveTimesCalled;
 
-    public PlayerInputOutputSpy() {
+    public PlayerInputSpy() {
         getMoveTimesCalled = 0;
     }
 

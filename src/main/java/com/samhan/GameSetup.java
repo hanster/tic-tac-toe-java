@@ -13,12 +13,12 @@ public class GameSetup {
     private static final String PLAYER_ONE = "1";
     private static final String PLAYER_TWO = "2";
     private final Display display;
-    private final PlayerInputOutput playerInputOutput;
+    private final PlayerInput playerInput;
     private final OptionMenu optionMenu;
 
-    public GameSetup(Display display, PlayerInputOutput playerInputOutput, OptionMenu optionMenu) {
+    public GameSetup(Display display, PlayerInput playerInput, OptionMenu optionMenu) {
         this.display = display;
-        this.playerInputOutput = playerInputOutput;
+        this.playerInput = playerInput;
         this.optionMenu = optionMenu;
     }
 
@@ -34,7 +34,7 @@ public class GameSetup {
         Player player;
         switch (playerType) {
             case HUMAN:
-                player = new Human(marker, playerInputOutput);
+                player = new Human(marker, playerInput);
                 break;
             case EASY_COMPUTER:
                 player = new EasyComputer(marker);
@@ -43,7 +43,7 @@ public class GameSetup {
                 player = new HardComputer(marker);
                 break;
             default:
-                player = new Human(marker, playerInputOutput);
+                player = new Human(marker, playerInput);
                 break;
         }
         return player;

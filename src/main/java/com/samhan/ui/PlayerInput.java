@@ -2,6 +2,6 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 
-public interface PlayerInputOutput {
+public interface PlayerInput {
     int getMove(Board board);
 }
