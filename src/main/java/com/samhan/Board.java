@@ -1,13 +1,14 @@
 package com.samhan;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.IntStream.range;
 
 public class Board {
-    private Marker[] marks;
-    private int boardSize;
-
+    private static final int OFFSET = 1;
+    private final List<Optional<Marker>> marks;
+    private final int boardSize;
 
     public Board() {
         this(3);
@@ -15,11 +16,10 @@ public class Board {
 
     public Board(int size) {
         this.boardSize = size;
-        this.marks = new Marker[size * size];
-        Arrays.fill(marks, Marker.EMPTY);
+        this.marks = new LinkedList<>(Collections.nCopies(size * size, Optional.<Marker>empty()));
     }
 
-    public Board(int size, Marker[] marks) {
+    public Board(int size, List<Optional<Marker>>marks) {
         this.boardSize = size;
         this.marks = marks;
     }
@@ -29,58 +29,51 @@ public class Board {
     }
 
     public boolean isEmpty() {
-        for (Marker mark : marks) {
-            if (!mark.equals(Marker.EMPTY)) {
-                return false;
-            }
-        }
-        return true;
+        return marks.stream().allMatch(marker -> !marker.isPresent());
     }
 
-    public Marker getMarkerAt(int position) {
-        return marks[position];
+    public Optional<Marker> getMarkerAt(int position) {
+        return marks.get(position - OFFSET);
     }
 
     public Board placeAt(int position, Marker marker) {
-        Marker[] newBoardMarks = marks.clone();
-        newBoardMarks[position] = marker;
+        List<Optional<Marker>> newBoardMarks = new LinkedList<>(marks);
+        newBoardMarks.set(position - OFFSET, Optional.of(marker));
         return new Board(boardSize, newBoardMarks);
     }
 
     public boolean isAvailable(int position) {
-        return marks[position].equals(Marker.EMPTY);
+        return !marks.get(position - OFFSET).isPresent();
     }
 
     public List<Integer> availableMoves() {
-        List<Integer> freePositions = new ArrayList<>();
-        for (int index = 0; index < marks.length; index++) {
-            if (isAvailable(index)) {
-                freePositions.add(index);
-            }
-        }
-
-        return freePositions;
-    }
-
-    public boolean hasWinner() {
-        return getWinner() != null;
+        return range(1, marks.size() + 1)
+                .filter(this::isAvailable)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     public boolean isFinished() {
-        return hasNoMoreMoves() || hasWinner();
+        return hasNoMoreMoves() || getWinner().isPresent();
     }
 
     public boolean isDraw() {
-        return hasNoMoreMoves() || !hasWinner();
+        return hasNoMoreMoves() || !getWinner().isPresent();
     }
 
-    public Marker getWinner() {
-        for (Line line : allLines()) {
-            if (line.isWinner()) {
-                return line.firstMark();
-            }
-        }
-        return null;
+    public Optional<Marker> getWinner() {
+        return getWinningLine().map(Line::firstMark).orElse(Optional.empty());
+    }
+
+    private Optional<Line> getWinningLine() {
+        return allLines()
+                .stream()
+                .filter(Line::isWinner)
+                .findFirst();
+    }
+
+    public int movesMade() {
+        return marks.size() - availableMoves().size();
     }
 
     private boolean hasNoMoreMoves() {
@@ -96,33 +89,25 @@ public class Board {
     }
 
     private List<Line> allRowLines() {
-        List<Line> allRowLines = new ArrayList<>();
-        for (int row = 0; row < boardSize; row++) {
-            allRowLines.add(rowLine(row));
-        }
-        return allRowLines;
+        return range(0, boardSize)
+                .mapToObj(this::rowLine)
+                .collect(Collectors.toList());
     }
 
     private Line rowLine(int rowIndex) {
-        List<Marker> rowMarkers = new ArrayList<>();
-        for (int i = 0; i < boardSize; i++) {
-            rowMarkers.add(getMarkerAt(rowIndex * boardSize + i));
-        }
-        return new Line(rowMarkers);
+        return new Line(marks.subList(rowIndex * boardSize, rowIndex * boardSize + boardSize));
     }
 
     private List<Line> allColumnLines() {
-        List<Line> allColumnLines = new ArrayList<>();
-        for (int column = 0; column < boardSize; column++) {
-            allColumnLines.add(columnLine(column));
-        }
-        return allColumnLines;
+        return range(0, boardSize)
+                .mapToObj(this::columnLine)
+                .collect(Collectors.toList());
     }
 
     private Line columnLine(int columnIndex) {
-        List<Marker> columnMarkers = new ArrayList<>();
+        List<Optional<Marker>> columnMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            columnMarkers.add(getMarkerAt(boardSize * i + columnIndex));
+            columnMarkers.add(marks.get(boardSize * i + columnIndex));
         }
         return new Line(columnMarkers);
     }
@@ -136,29 +121,25 @@ public class Board {
     }
 
     private Line leftRightDiagonalLine() {
-        List<Marker> leftRightMarkers = new ArrayList<>();
+        List<Optional<Marker>> leftRightMarkers = new ArrayList<>();
         for (int i = 0; i < boardSize; i++) {
-            leftRightMarkers.add(getMarkerAt(i + i * boardSize));
+            leftRightMarkers.add(marks.get(i + i * boardSize));
         }
         return new Line(leftRightMarkers);
     }
 
     private Line rightLeftDiagonalLine() {
-        List<Marker> rightLeftMarkers = new ArrayList<>();
+        List<Optional<Marker>> rightLeftMarkers = new ArrayList<>();
         for (int i = 1; i <= boardSize; i++) {
-            rightLeftMarkers.add(getMarkerAt(i * boardSize - i));
+            rightLeftMarkers.add(marks.get(i * boardSize - i));
         }
         return new Line(rightLeftMarkers);
     }
 
-    public int movesMade() {
-        return marks.length - availableMoves().size();
-    }
-
     private class Line {
-        private List<Marker> marks;
+        private final List<Optional<Marker>> marks;
 
-        public Line(List<Marker> marks) {
+        public Line(List<Optional<Marker>> marks) {
             this.marks = marks;
         }
 
@@ -166,22 +147,16 @@ public class Board {
             return firstMarkNotEmpty() && allTheSame();
         }
 
-        public Marker firstMark() {
+        public Optional<Marker> firstMark() {
             return marks.get(0);
         }
 
         private boolean firstMarkNotEmpty() {
-            return marks.get(0) != Marker.EMPTY;
+            return marks.get(0).isPresent();
         }
 
         private boolean allTheSame() {
-            Marker firstMark = marks.get(0);
-            for (Marker mark : marks) {
-                if (mark != firstMark) {
-                    return false;
-                }
-            }
-            return true;
+            return marks.stream().allMatch(mark -> mark.equals(marks.get(0)));
         }
     }
 }

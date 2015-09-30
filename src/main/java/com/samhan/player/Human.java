@@ -2,13 +2,13 @@ package com.samhan.player;
 
 import com.samhan.Board;
 import com.samhan.Marker;
-import com.samhan.ui.PlayerInputOutput;
+import com.samhan.ui.PlayerInput;
 
 public class Human implements Player {
-    private Marker marker;
-    private PlayerInputOutput input;
+    private final Marker marker;
+    private final PlayerInput input;
 
-    public Human(Marker marker, PlayerInputOutput input) {
+    public Human(Marker marker, PlayerInput input) {
         this.marker = marker;
         this.input = input;
     }

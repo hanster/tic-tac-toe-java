@@ -2,17 +2,21 @@ package com.samhan.ui;
 
 import com.samhan.Board;
 import com.samhan.Marker;
+import com.samhan.ui.console.ConsoleDisplay;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Optional;
 
+import static com.samhan.BoardCreationHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ConsoleDisplayTest {
+    private static final Optional<Marker> EMPTY = Optional.empty();
     private ByteArrayOutputStream output;
     private ConsoleDisplay display;
 
@@ -73,12 +77,12 @@ public class ConsoleDisplayTest {
                         "  9  |  X  | 11  | 12  \n" +
                         "-----+-----+-----+-----\n" +
                         "  X  | 14  | 15  | 16  \n";
-        Board board = new Board(4, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY, Marker.X,
-                Marker.EMPTY, Marker.EMPTY, Marker.X, Marker.EMPTY,
-                Marker.EMPTY, Marker.X, Marker.EMPTY, Marker.EMPTY,
-                Marker.X, Marker.EMPTY, Marker.EMPTY, Marker.EMPTY
-        });
+        Board board = createBoard(4,
+                EMPTY, EMPTY, EMPTY, X,
+                EMPTY, EMPTY, X,     EMPTY,
+                EMPTY, X,     EMPTY, EMPTY,
+                X,     EMPTY, EMPTY, EMPTY
+        );
 
         display.render(board, Marker.X);
 
@@ -94,11 +98,11 @@ public class ConsoleDisplayTest {
 
     @Test
     public void displayDrawEndStatus() {
-        Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.O
-        });
+        Board board = createBoard(3,
+                X, O, X,
+                X, O, X,
+                O, X, O
+        );
 
         display.render(board, Marker.X);
 
@@ -107,11 +111,11 @@ public class ConsoleDisplayTest {
 
     @Test
     public void displayXWinnerEndStatus() {
-        Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.O, Marker.X,
-                Marker.O, Marker.X, Marker.X
-        });
+        Board board = createBoard(3,
+                X, O, X,
+                O, O, X,
+                O, X, X
+        );
 
         display.render(board, Marker.O);
 
@@ -121,11 +125,11 @@ public class ConsoleDisplayTest {
 
     @Test
     public void displayOWinnerEndStatus() {
-        Board board = new Board(3, new Marker[]{
-                Marker.X, Marker.O, Marker.X,
-                Marker.O, Marker.O, Marker.O,
-                Marker.O, Marker.X, Marker.X
-        });
+        Board board = createBoard(3,
+                X, O, X,
+                O, O, O,
+                O, X, X
+        );
 
         display.render(board, Marker.X);
 
@@ -151,6 +155,28 @@ public class ConsoleDisplayTest {
         display.render(new Board(3), Marker.X);
 
         assertThat(output.toString(), containsString(emptyBoard));
+
+    }
+
+    @Test
+    public void clearsTheScreenWhenGreeting() {
+        display.greet();
+
+        assertThat(output.toString(), startsWith("\u001B[2J\u001B[H"));
+    }
+
+    @Test
+    public void greetsWithAWelcomeMessage() {
+        display.greet();
+
+        assertThat(output.toString(), containsString("Welcome to TicTcToe\n\nTime to set up!\n\n"));
+    }
+
+    @Test
+    public void farewellMessage() {
+        display.farewell();
+
+        assertThat(output.toString(), containsString("Thanks for playing!\n\nBye!"));
 
     }
 }

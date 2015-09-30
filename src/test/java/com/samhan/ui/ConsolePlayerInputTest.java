@@ -1,20 +1,22 @@
 package com.samhan.ui;
 
 import com.samhan.Board;
-import com.samhan.Marker;
+import com.samhan.ui.console.ConsoleDisplay;
+import com.samhan.ui.console.ConsolePlayerInput;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.samhan.BoardCreationHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ConsolePlayerInputOutputTest {
+public class ConsolePlayerInputTest {
     private ByteArrayOutputStream output;
-    private ConsolePlayerInputOutput consoleIO;
+    private ConsolePlayerInput consoleIO;
 
     private void setUpQueuedConsoleInput(String[] listOfInputs) {
         String totalInputs = "";
@@ -23,7 +25,9 @@ public class ConsolePlayerInputOutputTest {
         }
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
-        consoleIO = new ConsolePlayerInputOutput(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
+        ConsoleDisplay display = new ConsoleDisplay(printStream);
+        UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
+        consoleIO = new ConsolePlayerInput(userInput, display);
     }
 
     @Test
@@ -38,14 +42,14 @@ public class ConsolePlayerInputOutputTest {
     public void getValidInput() {
         setUpQueuedConsoleInput(new String[]{"5"});
 
-        assertThat(consoleIO.getMove(new Board()), is(4));
+        assertThat(consoleIO.getMove(new Board()), is(5));
     }
 
     @Test
     public void promptAgainWhenNonNumberInput() {
         setUpQueuedConsoleInput(new String[]{"a", "5"});
 
-        assertThat(consoleIO.getMove(new Board()), is(4));
+        assertThat(consoleIO.getMove(new Board()), is(5));
     }
 
     @Test
@@ -69,11 +73,11 @@ public class ConsolePlayerInputOutputTest {
     @Test
     public void displayMoveAlreadyTaken() {
         setUpQueuedConsoleInput(new String[]{"5", "6"});
-        Board board = new Board(3, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.O, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-        });
+        Board board = createBoard(3,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, O,     EMPTY,
+                EMPTY, EMPTY, EMPTY
+        );
 
         consoleIO.getMove(board);
 
@@ -83,11 +87,11 @@ public class ConsolePlayerInputOutputTest {
     @Test
     public void displayInvalidEntryWhenMoveOutOfRange() {
         setUpQueuedConsoleInput(new String[]{"0", "6"});
-        Board board = new Board(3, new Marker[]{
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-                Marker.EMPTY, Marker.O, Marker.EMPTY,
-                Marker.EMPTY, Marker.EMPTY, Marker.EMPTY,
-        });
+        Board board = createBoard(3,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, O,     EMPTY,
+                EMPTY, EMPTY, EMPTY
+        );
 
         consoleIO.getMove(board);
 

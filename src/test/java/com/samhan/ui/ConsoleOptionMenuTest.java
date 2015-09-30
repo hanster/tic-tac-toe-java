@@ -1,5 +1,9 @@
 package com.samhan.ui;
 
+import com.samhan.BoardType;
+import com.samhan.PlayerType;
+import com.samhan.ui.console.ConsoleOptionMenu;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -26,7 +30,8 @@ public class ConsoleOptionMenuTest {
         }
         output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
-        console = new ConsoleOptionMenu(new ByteArrayInputStream(totalInputs.getBytes()), printStream);
+        UserInput userInput = new UserInput(new ByteArrayInputStream(totalInputs.getBytes()));
+        console = new ConsoleOptionMenu(userInput, printStream);
         prompt = "Enter an option:";
         options = new LinkedHashMap<>();
         options.put("1", "the first option");
@@ -74,8 +79,81 @@ public class ConsoleOptionMenuTest {
     public void displayAnErrorMessageForInvalidInput() {
         setUpQueuedConsoleInput(new String[]{"asdf", "1"});
 
-        String selection = console.getSelection(prompt, options);
+        console.getSelection(prompt, options);
 
         assertThat(output.toString(), containsString("Invalid Selection"));
+    }
+
+    @Test
+    public void selectAThreeBoardType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", BoardType.THREE.getInput()});
+
+        BoardType boardType = console.getBoardSelection();
+
+        assertThat(boardType, is(BoardType.THREE));
+    }
+
+
+    @Test
+    public void selectAtFourBoardType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", BoardType.FOUR.getInput()});
+
+        BoardType boardType = console.getBoardSelection();
+
+        assertThat(boardType, is(BoardType.FOUR));
+    }
+
+    @Test
+    public void selectAHumanPlayerType() {
+        setUpQueuedConsoleInput(new String[]{"asdf", PlayerType.HUMAN.getInput()});
+
+        PlayerType playerType = console.getPlayerSelection("1");
+
+        assertThat(playerType, is(PlayerType.HUMAN));
+    }
+
+    @Test
+    public void displaysQuestion() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
+
+        console.doPlayAgain();
+
+        assertThat(output.toString(), containsString("Do you want to play again?"));
+    }
+
+    @Test
+    public void yReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Y"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(true));
+    }
+
+    @Test
+    public void yesReturnsTrue() {
+        setUpQueuedConsoleInput(new String[]{"Yes"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(true));
+    }
+
+    @Test
+    public void nReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"N"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+    }
+
+    @Test
+    public void noReturnsFalse() {
+        setUpQueuedConsoleInput(new String[]{"No"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+    }
+
+    @Test
+    public void promptsUntilValid() {
+        setUpQueuedConsoleInput(new String[]{"Nope", "O", "n"});
+
+        assertThat(console.doPlayAgain(), CoreMatchers.is(false));
+        assertThat(output.toString(), containsString("Invalid Entry. [Y]es or [N]o"));
     }
 }

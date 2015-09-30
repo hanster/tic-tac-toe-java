@@ -6,7 +6,7 @@ import com.samhan.Marker;
 import java.util.Random;
 
 public class EasyComputer implements Player {
-    private Marker marker;
+    private final Marker marker;
 
     public EasyComputer(Marker marker) {
         this.marker = marker;

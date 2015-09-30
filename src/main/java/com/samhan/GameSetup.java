@@ -4,31 +4,28 @@ import com.samhan.player.EasyComputer;
 import com.samhan.player.HardComputer;
 import com.samhan.player.Human;
 import com.samhan.player.Player;
-import com.samhan.ui.BoardSelection;
-import com.samhan.ui.Display;
-import com.samhan.ui.PlayerInputOutput;
-import com.samhan.ui.PlayerSelection;
+import com.samhan.ui.*;
+
+import static com.samhan.Marker.*;
 
 public class GameSetup {
 
-    public static final String PLAYER_ONE = "1";
-    public static final String PLAYER_TWO = "2";
+    private static final String PLAYER_ONE = "1";
+    private static final String PLAYER_TWO = "2";
     private final Display display;
-    private final PlayerInputOutput playerInputOutput;
-    private final PlayerSelection playerSelection;
-    private final BoardSelection boardSelection;
+    private final PlayerInput playerInput;
+    private final OptionMenu optionMenu;
 
-    public GameSetup(Display display, PlayerInputOutput playerInputOutput, PlayerSelection playerSelection, BoardSelection boardSelection) {
+    public GameSetup(Display display, PlayerInput playerInput, OptionMenu optionMenu) {
         this.display = display;
-        this.playerInputOutput = playerInputOutput;
-        this.playerSelection = playerSelection;
-        this.boardSelection = boardSelection;
+        this.playerInput = playerInput;
+        this.optionMenu = optionMenu;
     }
 
     public GameParams buildGame() {
-        Player player1 = createPlayer(playerSelection.selectType(PLAYER_ONE), Marker.X);
-        Player player2 = createPlayer(playerSelection.selectType(PLAYER_TWO), Marker.O);
-        Board board = createBoard(boardSelection.selectType());
+        Player player1 = createPlayer(optionMenu.getPlayerSelection(PLAYER_ONE), X);
+        Player player2 = createPlayer(optionMenu.getPlayerSelection(PLAYER_TWO), O);
+        Board board = createBoard(optionMenu.getBoardSelection());
 
         return new GameParams(player1, player2, board, display);
     }
@@ -37,7 +34,7 @@ public class GameSetup {
         Player player;
         switch (playerType) {
             case HUMAN:
-                player = new Human(marker, playerInputOutput);
+                player = new Human(marker, playerInput);
                 break;
             case EASY_COMPUTER:
                 player = new EasyComputer(marker);
@@ -46,7 +43,7 @@ public class GameSetup {
                 player = new HardComputer(marker);
                 break;
             default:
-                player = new Human(marker, playerInputOutput);
+                player = new Human(marker, playerInput);
                 break;
         }
         return player;
